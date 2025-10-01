@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">pmdm-t2-myweatherapp</string>
+    <string name="title" translatable="false">Temperature</string>
+    <string name="translate" translatable="false">PUT IN SPANISH</string>
+    <string name="max" translatable="false">Maximum</string>
+    <string name="min" translatable="false">Minimum</string>
+    <string name="estado" translatable="false">State</string>
+</resources>
