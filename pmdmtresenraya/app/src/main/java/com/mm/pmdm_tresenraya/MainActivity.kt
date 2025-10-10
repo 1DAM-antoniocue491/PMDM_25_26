@@ -1,6 +1,7 @@
 package com.mm.pmdm_tresenraya
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +17,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val score1 = findViewById<TextView>(R.id.score1)
+        val score2 = findViewById<TextView>(R.id.score2)
+
+        score1.text = "0"
+        score2.text = "0"
     }
 }
