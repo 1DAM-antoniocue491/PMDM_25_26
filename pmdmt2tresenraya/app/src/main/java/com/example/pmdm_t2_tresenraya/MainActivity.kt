@@ -1,13 +1,16 @@
 package com.example.pmdm_t2_tresenraya
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.os.Bundle
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
@@ -31,5 +34,6 @@ class MainActivity : AppCompatActivity() {
         btn_dark.setOnClickListener {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
+
     }
 }
