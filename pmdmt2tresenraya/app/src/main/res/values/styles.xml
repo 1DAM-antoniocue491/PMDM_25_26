@@ -1,0 +1,7 @@
+<resources>
+    <style name="GeneralRoundedStyle">
+        <item name="android:background">@drawable/general_rounded_style</item>
+        <item name="android:textColor">?attr/colorSecondaryVariant</item>
+        <item name="android:padding">12dp</item>
+    </style>
+</resources>

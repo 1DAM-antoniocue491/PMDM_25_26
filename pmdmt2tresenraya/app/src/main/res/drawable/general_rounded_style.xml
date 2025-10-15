@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Color de fondo dependiente del tema -->
+    <solid android:color="?attr/colorOnPrimary" />
+
+    <!-- Bordes redondeados -->
+    <corners android:radius="16dp" />
+
+    <!-- Sin borde -->
+    <stroke android:width="0dp" android:color="@android:color/transparent" />
+</shape>
