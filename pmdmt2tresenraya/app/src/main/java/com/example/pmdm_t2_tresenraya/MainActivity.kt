@@ -1,6 +1,7 @@
 package com.example.pmdm_t2_tresenraya
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.widget.Button
@@ -32,8 +33,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn_dark.setOnClickListener {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            val intent = Intent(this, play3::class.java)
+            startActivity(intent)
         }
+
 
     }
 }
