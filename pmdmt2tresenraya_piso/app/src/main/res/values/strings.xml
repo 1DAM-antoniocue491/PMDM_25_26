@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">pmdm-t2-tresenraya</string>
+    <string name="tic_tac_toe">TIC TAC TOE</string>
+    <string name="board_size">Tamaño de la tabla</string>
+</resources>

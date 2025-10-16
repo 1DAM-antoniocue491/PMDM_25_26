@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Default" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/light_sky_blue</item>
+        <item name="colorPrimaryVariant">@color/eclipse</item>
+        <item name="colorOnPrimary">@color/eclipse_200</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/dark_cian</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+    </style>
+</resources>
