@@ -70,7 +70,7 @@
     </LinearLayout>
 
     <GridLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alignmentMode="alignBounds"
         android:columnCount="3"
@@ -84,40 +84,87 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
             android:layout_height="100dp"
-             />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:background="@color/gray" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:useDefaultMargins="false" />
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/gray"
+            android:insetLeft="0dp"
+            android:insetTop="0dp"
+            android:insetRight="0dp"
+            android:insetBottom="0dp"
+            android:padding="0dp" />
 
     </GridLayout>
 

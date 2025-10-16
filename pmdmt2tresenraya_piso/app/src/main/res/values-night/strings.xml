@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="board_size">Tamaño de la tabla</string>
+    <string name="modo_de_juego">Modo de juego</string>
 </resources>

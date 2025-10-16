@@ -9,4 +9,12 @@
         <item name="colorSecondary">@color/dark_cian</item>
         <item name="colorSecondaryVariant">@color/black</item>
     </style>
+
+    <style name="Theme.Default.CeldaJuego">
+        <item name="android:padding">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+    </style>
 </resources>
