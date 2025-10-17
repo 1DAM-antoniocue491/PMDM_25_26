@@ -20,6 +20,8 @@ class Game_3_3_Activity : AppCompatActivity() {
             insets
         }
 
+        val play = Play(this)
+
         val btn1 = findViewById<Button>(R.id.celda11)
         val btn2 = findViewById<Button>(R.id.celda12)
         val btn3 = findViewById<Button>(R.id.celda13)
@@ -36,7 +38,6 @@ class Game_3_3_Activity : AppCompatActivity() {
 
         var table = arrayOf(row1, row2, row3)
 
-        val play = Play(this)
         play.setBaseColor(table)
 
         var play_row1 = arrayOf(' ',' ',' ')

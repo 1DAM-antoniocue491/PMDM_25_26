@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Game_9_9_Activity"
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/component_rounded1">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/player_1" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vs" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/player_2" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Connect 5 to win" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp">
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alignmentMode="alignBounds"
+            android:columnCount="9"
+            android:rowCount="9"
+            android:useDefaultMargins="false"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button android:id="@+id/celda11" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda12" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda13" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda14" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda15" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda16" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda17" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda18" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda19" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda21" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda22" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda23" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda24" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda25" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda26" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda27" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda28" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda29" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda31" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda32" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda33" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda34" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda35" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda36" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda37" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda38" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda39" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda41" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda42" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda43" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda44" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda45" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda46" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda47" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda48" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda49" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda51" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda52" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda53" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda54" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda55" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda56" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda57" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda58" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda59" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda61" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda62" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda63" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda64" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda65" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda66" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda67" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda68" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda69" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda71" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda72" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda73" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda74" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda75" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda76" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda77" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda78" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda79" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda81" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda82" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda83" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda84" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda85" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda86" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda87" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda88" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda89" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+            <Button android:id="@+id/celda91" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda92" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda93" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda94" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda95" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda96" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda97" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda98" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+            <Button android:id="@+id/celda99" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
+
+        </GridLayout>
+    </LinearLayout>
+
+</LinearLayout>

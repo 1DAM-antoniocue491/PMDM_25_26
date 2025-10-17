@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "pmdm-t2-tresenraya"
 include(":app")
- 

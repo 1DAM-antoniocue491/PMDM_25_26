@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.Default" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -10,16 +10,12 @@
         <item name="colorSecondaryVariant">@color/white</item>
     </style>
 
-    <style name="GridButtonStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_rowWeight">1</item>
-        <item name="android:layout_columnWeight">1</item>
+    <style name="Theme.Default.CeldaJuego">
         <item name="android:padding">0dp</item>
-        <item name="android:layout_margin">0dp</item>
-        <item name="android:backgroundTint">@android:color/holo_blue_light</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="backgroundTint">?attr/colorOnPrimary</item>
     </style>
-
 </resources>
