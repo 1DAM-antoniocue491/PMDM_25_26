@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="blue">#1F96FF</color>
+    <color name="blue_500">#801F96FF</color>
+    <color name="dark_blue">#2900DE</color>
+    <color name="dark_cian">#00A3DE</color>
+    <color name="dark_green">#00DE16</color>
+    <color name="dark_orange">#DEA600</color>
+    <color name="dark_pink">#DE009B</color>
+    <color name="dark_red">#DE0000</color>
+    <color name="dark_sky_blue">#131D2D</color>
+    <color name="eclipse">#404040</color>
+    <color name="eclipse_200">#33404040</color>
+    <color name="gray">#B6B6B6</color>
+    <color name="gray_200">#33B6B6B6</color>
+    <color name="light_cian">#52BBE1</color>
+    <color name="light_green">#65E152</color>
+    <color name="light_orange">#E1A552</color>
+    <color name="light_pink">#E152C2</color>
+    <color name="light_purple">#7552E1</color>
+    <color name="light_red">#E15252</color>
+    <color name="light_sky_blue">#9AC2FF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="red">#FF1616</color>
+    <color name="red_500">#80FF1616</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">pmdm-t2-tresenraya</string>
+    <string name="board_size">Tamaño de la tabla</string>
+    <string name="tic_tac_toe">TIC TAC TOE</string>
+    <style name="Theme.Default" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/light_sky_blue</item>
+        <item name="colorPrimaryVariant">@color/eclipse</item>
+        <item name="colorOnPrimary">@color/eclipse_200</item>
+        
+        <item name="colorSecondary">@color/dark_cian</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+    </style>
+</resources>

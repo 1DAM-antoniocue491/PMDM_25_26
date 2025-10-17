@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="board_size">Tamaño de la tabla</string>
+    <style name="Theme.Default" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/dark_sky_blue</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorOnPrimary">@color/gray_200</item>
+        
+        <item name="colorSecondary">@color/light_cian</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+    </style>
+</resources>
