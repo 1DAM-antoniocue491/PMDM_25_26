@@ -67,7 +67,7 @@
             android:useDefaultMargins="false"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button android:id="@+id/celda11" android:layout_width="40dp" android:layout_height="40dp" style="@style/Theme.Default.CeldaJuego" />
