@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pmdm_t2_tresenraya.Play
+import com.example.pmdm_t2_tresenraya.model.Play
 import java.util.Arrays
 
 class Game_3_3_Activity : AppCompatActivity() {
@@ -22,16 +22,13 @@ class Game_3_3_Activity : AppCompatActivity() {
             insets
         }
 
+        val valor = intent.getStringExtra("ia")
+
         val play = Play(this)
 
-        var game: Array<Array<Char>> = arrayOf()
+        var game = Array(3) { Array (3) {' '} }
         var piece = true
 
-        for (x in 1..3) {
-            var play_row = arrayOf(' ', ' ', ' ')
-            game = Arrays.copyOf(game, game.size+1)
-            game[game.size-1] = play_row
-        }
 
         for (x in 1..3) {
             for (y in 1..3) {
@@ -41,15 +38,20 @@ class Game_3_3_Activity : AppCompatActivity() {
 
                 val btn: Button = findViewById<Button>(btn_id)
                 btn.setOnClickListener {
-                    if (piece) {
-                        play.setX(btn, game, x-1, y-1)
-                        piece = false
+                    if (valor.equals("true")) {
+                        play.setX(btn_id, game, x-1, y-1)
                     } else {
-                        play.setO(btn, game, x-1, y-1)
-                        piece = true
+                        if (piece) {
+                            play.setX(btn_id, game, x-1, y-1)
+                            piece = false
+                        } else {
+                            play.setO(btn_id, game, x-1, y-1)
+                            piece = true
+                        }
                     }
                 }
             }
         }
+
     }
 }

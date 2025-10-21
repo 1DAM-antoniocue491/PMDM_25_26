@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
-import com.example.pmdm_t2_tresenraya.Play
+import com.example.pmdm_t2_tresenraya.model.Play
 import java.util.Arrays
 
 class Game_9_9_Activity : AppCompatActivity() {

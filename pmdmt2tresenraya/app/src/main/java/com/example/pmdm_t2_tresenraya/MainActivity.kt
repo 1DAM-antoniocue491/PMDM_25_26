@@ -73,13 +73,16 @@ class MainActivity : AppCompatActivity() {
         computer.setBackgroundColor(colorFromTheme)
 
         var gameMode = arrayOf(computer, person)
+        var gameModeBoolean = true
 
         computer.setOnClickListener {
             setButton(computer, gameMode)
+            gameModeBoolean = true
         }
 
         person.setOnClickListener {
             setButton(person, gameMode)
+            gameModeBoolean = false
         }
 
         val play = findViewById<Button>(R.id.play)
@@ -90,10 +93,25 @@ class MainActivity : AppCompatActivity() {
 
             if (boolean_table[0]) {
                 intent = Intent(this, Game_3_3_Activity::class.java)
+                if (gameModeBoolean) {
+                    intent.putExtra("ia", "true")
+                } else {
+                    intent.putExtra("ia", "false")
+                }
             } else if (boolean_table[1]) {
                 intent = Intent(this, Game_6_6_Activity::class.java)
+                if (gameModeBoolean) {
+                    intent.putExtra("ia", "true")
+                } else {
+                    intent.putExtra("ia", "false")
+                }
             } else {
                 intent = Intent(this, Game_9_9_Activity::class.java)
+                if (gameModeBoolean) {
+                    intent.putExtra("ia", "true")
+                } else {
+                    intent.putExtra("ia", "false")
+                }
             }
 
             startActivity(intent)
