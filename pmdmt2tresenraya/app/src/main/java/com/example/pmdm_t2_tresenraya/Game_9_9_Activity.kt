@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.widget.Button
+import com.example.pmdm_t2_tresenraya.Play
 import java.util.Arrays
 
 class Game_9_9_Activity : AppCompatActivity() {
@@ -23,8 +24,7 @@ class Game_9_9_Activity : AppCompatActivity() {
 
         val  play = Play(this)
 
-        val botones :MutableMap<Int, Int> = mutableMapOf()
-        var contador: Int = 1;
+
         var game: Array<Array<Char>> = arrayOf()
         var piece = true
 
@@ -36,24 +36,19 @@ class Game_9_9_Activity : AppCompatActivity() {
 
         for (x in 1..9) {
             for (y in 1..9) {
-            var value: String = "celda"
-            value += x + y
-            val id = resources.getIdentifier(value, "id", packageName)
+                var value: String = "celda"
+                value += "$x$y"
+                val btn_id = resources.getIdentifier(value, "id", packageName)
 
-            botones[contador++] = id
-            }
-        }
-
-
-        for (btn_id in 1..81) {
-            val id = botones.get(btn_id) ?: 0
-            findViewById<Button>(id).setOnClickListener {
-                if (piece) {
-                    play.setX(findViewById<Button>(id), game, 0, 0)
-                    piece = false
-                } else {
-                    play.setO(findViewById<Button>(id), game, 0, 0)
-                    piece = true
+                val btn: Button = findViewById<Button>(btn_id)
+                btn.setOnClickListener {
+                    if (piece) {
+                        play.setX(btn, game, x-1, y-1)
+                        piece = false
+                    } else {
+                        play.setO(btn, game, x-1, y-1)
+                        piece = true
+                    }
                 }
             }
         }

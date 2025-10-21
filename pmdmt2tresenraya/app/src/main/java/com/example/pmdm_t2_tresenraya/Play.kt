@@ -21,7 +21,11 @@ class Play (val activity: Activity) {
 
     fun setX(btn: Button, posiciones: Array<Array<Char>>, posX: Int, posY: Int): Array<Array<Char>> {
         if (posiciones[posY][posX] == ' ') {
-            btn.setBackgroundResource(R.drawable.celda_pulsada_x)
+            when(posiciones.size) {
+                3 -> btn.setBackgroundResource(R.drawable.x_3_3)
+                6 -> btn.setBackgroundResource(R.drawable.x_6_6)
+                9 -> btn.setBackgroundResource(R.drawable.x_9_9)
+            }
         }
         posiciones[posY][posX] = 'X'
         return posiciones
@@ -29,7 +33,11 @@ class Play (val activity: Activity) {
 
     fun setO(btn: Button, posiciones: Array<Array<Char>>, posY: Int, posX: Int): Array<Array<Char>> {
         if (posiciones[posY][posX] == ' ') {
-            btn.setBackgroundResource(R.drawable.celda_pulsada_o)
+            when(posiciones.size) {
+                3 -> btn.setBackgroundResource(R.drawable.o_3_3)
+                6 -> btn.setBackgroundResource(R.drawable.o_6_6)
+                9 -> btn.setBackgroundResource(R.drawable.o_9_9)
+            }
         }
         posiciones[posY][posX] = 'O'
         return posiciones
