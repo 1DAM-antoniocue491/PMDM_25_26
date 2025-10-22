@@ -60,12 +60,9 @@ class Game_3_3_Activity : AppCompatActivity() {
         if (isXTurn) {
             play.setX(btn.id, game, row, col)
             game[row][col] = 'X'
-        } else {
-            play.setO(btn.id, game, row, col)
-            game[row][col] = 'O'
         }
 
-        Log.v("Game", gameContent())
+        Log.v("Prueba", "game content: " + gameContent())
 
         // Revisar si alguien ganó
         if (ia.checkWin(game)) {

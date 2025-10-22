@@ -1,5 +1,7 @@
 package com.example.pmdm_t2_tresenraya.model
 
+import android.util.Log
+
 class IA {
 
     private val aiChar = 'O'
@@ -45,6 +47,8 @@ class IA {
                 }
             }
         }
+
+        Log.i("Prueba", bestMove.toString())
         return bestMove
     }
 
@@ -69,6 +73,7 @@ class IA {
         if (diagSecundaria.isNotEmpty()) score += evaluateLine(diagSecundaria)
 
         board[row][col] = ' '
+        Log.i("Prueba", "posicion: " + board[row][col].toString())
         return score
     }
 

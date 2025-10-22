@@ -20,7 +20,7 @@ class Play (val activity: Activity) {
         }
     }
 
-    fun setX(btn_id: Int, posiciones: Array<Array<Char>>, posX: Int, posY: Int): Array<Array<Char>> {
+    fun setX(btn_id: Int, posiciones: Array<Array<Char>>, posX: Int, posY: Int) {
         val btn: Button = activity.findViewById<Button>(btn_id)
         if (posiciones[posY][posX] == ' ') {
             when(posiciones.size) {
@@ -29,10 +29,9 @@ class Play (val activity: Activity) {
                 9 -> btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.x_9_9)
             }
         }
-        return posiciones
     }
 
-    fun setO(btn_id: Int, posiciones: Array<Array<Char>>, posY: Int, posX: Int): Array<Array<Char>> {
+    fun setO(btn_id: Int, posiciones: Array<Array<Char>>, posY: Int, posX: Int) {
         val btn: Button = activity.findViewById<Button>(btn_id)
         if (posiciones[posY][posX] == ' ') {
             when(posiciones.size) {
@@ -41,6 +40,5 @@ class Play (val activity: Activity) {
                 9 -> btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.o_9_9)
             }
         }
-        return posiciones
     }
 }
