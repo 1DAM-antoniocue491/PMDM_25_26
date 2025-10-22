@@ -29,7 +29,6 @@ class Play (val activity: Activity) {
                 9 -> btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.x_9_9)
             }
         }
-        posiciones[posY][posX] = 'x'
         return posiciones
     }
 
@@ -42,7 +41,6 @@ class Play (val activity: Activity) {
                 9 -> btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.o_9_9)
             }
         }
-        posiciones[posY][posX] = 'o'
         return posiciones
     }
 }

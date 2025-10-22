@@ -39,13 +39,13 @@ class Game_6_6_Activity : AppCompatActivity() {
 
                 val btn: Button = findViewById<Button>(btn_id)
                 btn.setOnClickListener {
-                    if (piece) {
-                        play.setX(btn, game, x-1, y-1)
-                        piece = false
-                    } else {
-                        play.setO(btn, game, x-1, y-1)
-                        piece = true
-                    }
+//                    if (piece) {
+//                        play.setX(btn, game, x-1, y-1)
+//                        piece = false
+//                    } else {
+//                        play.setO(btn, game, x-1, y-1)
+//                        piece = true
+//                    }
                 }
             }
         }
