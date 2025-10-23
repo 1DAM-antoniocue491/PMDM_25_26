@@ -1,15 +1,29 @@
 package com.example.pmdm_t2_tresenraya
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pmdm_t2_tresenraya.model.CellState
+import com.example.pmdm_t2_tresenraya.model.IA
+import com.example.pmdm_t2_tresenraya.model.IA_plus
 import com.example.pmdm_t2_tresenraya.model.Play
 import java.util.Arrays
 
 class Game_6_6_Activity : AppCompatActivity() {
+
+    private lateinit var juego: Array<Array<CellState>>
+    private var isXTurn: Boolean = true
+    private lateinit var play: Play
+    private lateinit var ia: IA_plus
+    private var aiEnabled: Boolean = false
+    private var someOneWin: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,34 +34,132 @@ class Game_6_6_Activity : AppCompatActivity() {
             insets
         }
 
-        val play = Play(this)
+        // Inicializar objetos
+        play = Play(this)
+        ia = IA_plus(this, 4, 4)
+        juego = Array(6) { Array(6) { CellState.CLEAR } }
 
-        var game: Array<Array<Char>> = arrayOf()
-        var piece = true
+        // Configurar modo IA
+        aiEnabled = intent.getStringExtra("ia") == "true"
 
-        for (x in 1..6) {
-            var play_row = arrayOf(' ', ' ', ' ', ' ', ' ', ' ')
-            game = Arrays.copyOf(game, game.size+1)
-            game[game.size-1] = play_row
-        }
+        setupButtons()
+    }
 
-        for (x in 1..6) {
-            for (y in 1..6) {
-                var value: String = "celda"
-                value += "$x$y"
-                val btn_id = resources.getIdentifier(value, "id", packageName)
-
-                val btn: Button = findViewById<Button>(btn_id)
-                btn.setOnClickListener {
-//                    if (piece) {
-//                        play.setX(btn, game, x-1, y-1)
-//                        piece = false
-//                    } else {
-//                        play.setO(btn, game, x-1, y-1)
-//                        piece = true
-//                    }
+    private fun setupButtons() {
+        for (row in 0..5) {
+            for (col in 0..5) {
+                val btnIdName = "celda${row + 1}${col + 1}"
+                val btnId = resources.getIdentifier(btnIdName, "id", packageName)
+                val btn: Button? = findViewById(btnId)
+                btn?.setOnClickListener {
+                    if (!someOneWin) {
+                        onPlayerMove(row, col, btn)
+                    }
                 }
             }
         }
+    }
+
+    private fun onPlayerMove(row: Int, col: Int, btn: Button) {
+        if (juego[row][col] != CellState.CLEAR) return // Casilla ocupada
+
+        Log.i("Prueba", "BTN ID: ${row+1} : ${col+1}")
+        if (isXTurn) {
+            play.setX(btn.id, juego, row, col)
+            juego[row][col] = CellState.CROSS
+        } else {
+            play.setO(btn.id, juego, row, col)
+            juego[row][col] = CellState.CIRCLE
+        }
+
+        Log.v("Prueba", "game content: " + gameContent())
+
+        // Revisar si alguien ganó
+        if (ia.checkWin(juego)) {
+            Log.v("Prueba", "¡Ganó ${if (isXTurn) "X" else "O"}!")
+            someOneWin = true
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(this, "¡Ganó ${if (isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
+            return
+        } else {
+            // Tablas
+            var i: Int = 0
+            for (row in 0..5) {
+                for (col in 0..5) {
+                    if (juego[row][col] != CellState.CLEAR)
+                        i++
+                }
+            }
+            if (i == 36) {
+                Log.v("Prueba", "¡Tablas!")
+                someOneWin = true
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "¡Tablas!", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+        isXTurn = !isXTurn
+
+        // IA mueve si está activada y es su turno
+        if (aiEnabled && !isXTurn) {
+            val aiPos = ia.bestPosition(juego)
+            iaTurn(aiPos)
+        }
+
+        if (someOneWin)  {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun iaTurn(pos: Pair<Int, Int>) {
+        val row = pos.first
+        val col = pos.second
+        val btnIdName = "celda${row + 1}${col + 1}"
+        val btnId = resources.getIdentifier(btnIdName, "id", packageName)
+        val btn: Button? = findViewById(btnId)
+
+        btn?.let {
+            play.setO(btn.id, juego, row, col)
+            juego[row][col] = CellState.CIRCLE
+            Log.v("Prueba", "IA movió:")
+            Log.v("Prueba", gameContent())
+        }
+
+        // Revisar si IA ganó
+        if (ia.checkWin(juego)) {
+            Log.v("Prueba", "¡Ganó la IA!")
+            Toast.makeText(this, "¡Ganó la IA!", Toast.LENGTH_SHORT).show()
+            someOneWin = true
+            return
+        } else {
+            // Tablas
+            var i: Int = 0
+            for (row in 0..5) {
+                for (col in 0..5) {
+                    if (juego[row][col] != CellState.CLEAR)
+                        i++
+                }
+            }
+            if (i == 36) {
+                Log.v("Prueba", "¡Tablas!")
+                someOneWin = true
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                Toast.makeText(this, "¡Tablas!", Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
+
+
+        isXTurn = true
+    }
+
+    private fun gameContent(): String {
+        return juego.joinToString("\n") { it.joinToString(" ") }
     }
 }

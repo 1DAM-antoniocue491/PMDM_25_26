@@ -145,8 +145,6 @@
                 android:layout_height="100dp"
                 style="@style/Theme.Default.CeldaJuego"
                 />
-
-
         </GridLayout>
     </LinearLayout>
 </LinearLayout>
