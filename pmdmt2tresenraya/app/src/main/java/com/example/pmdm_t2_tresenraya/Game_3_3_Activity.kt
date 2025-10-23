@@ -8,16 +8,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pmdm_t2_tresenraya.model.CellState
 import com.example.pmdm_t2_tresenraya.model.IA
 import com.example.pmdm_t2_tresenraya.model.Play
 
 class Game_3_3_Activity : AppCompatActivity() {
 
-    private lateinit var game: Array<Array<Char>>
+    private lateinit var juego: Array<Array<CellState>>
     private var isXTurn: Boolean = true
     private lateinit var play: Play
     private lateinit var ia: IA
     private var aiEnabled: Boolean = false
+    private var someOneWin: Boolean = false
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +35,7 @@ class Game_3_3_Activity : AppCompatActivity() {
         // Inicializar objetos
         play = Play(this)
         ia = IA()
-        game = Array(3) { Array(3) { ' ' } }
+        juego = Array(3) { Array(3) { CellState.CLEAR } }
 
         // Configurar modo IA
         aiEnabled = intent.getStringExtra("ia") == "true"
@@ -48,25 +50,29 @@ class Game_3_3_Activity : AppCompatActivity() {
                 val btnId = resources.getIdentifier(btnIdName, "id", packageName)
                 val btn: Button? = findViewById(btnId)
                 btn?.setOnClickListener {
-                    onPlayerMove(row, col, btn)
+                    if (!someOneWin) {
+                        onPlayerMove(row, col, btn)
+                    }
                 }
             }
         }
     }
 
     private fun onPlayerMove(row: Int, col: Int, btn: Button) {
-        if (game[row][col] != ' ') return // Casilla ocupada
+        if (juego[row][col] != CellState.CLEAR) return // Casilla ocupada
 
+        Log.i("Prueba", "BTN ID: ${row+1} : ${col+1}")
         if (isXTurn) {
-            play.setX(btn.id, game, row, col)
-            game[row][col] = 'X'
+            play.setX(btn.id, juego, row, col)
+            juego[row][col] = CellState.CROSS
         }
 
         Log.v("Prueba", "game content: " + gameContent())
 
         // Revisar si alguien ganó
-        if (ia.checkWin(game)) {
+        if (ia.checkWin(juego)) {
             Log.v("Prueba", "¡Ganó ${if (isXTurn) "X" else "O"}!")
+            someOneWin = true
             return
         }
 
@@ -74,7 +80,7 @@ class Game_3_3_Activity : AppCompatActivity() {
 
         // IA mueve si está activada y es su turno
         if (aiEnabled && !isXTurn) {
-            val aiPos = ia.bestPosition(game)
+            val aiPos = ia.bestPosition(juego)
             iaTurn(aiPos)
         }
     }
@@ -87,15 +93,16 @@ class Game_3_3_Activity : AppCompatActivity() {
         val btn: Button? = findViewById(btnId)
 
         btn?.let {
-            play.setO(btn.id, game, row, col)
-            game[row][col] = 'O'
+            play.setO(btn.id, juego, row, col)
+            juego[row][col] = CellState.CIRCLE
             Log.v("Prueba", "IA movió:")
             Log.v("Prueba", gameContent())
         }
 
         // Revisar si IA ganó
-        if (ia.checkWin(game)) {
+        if (ia.checkWin(juego)) {
             Log.v("Prueba", "¡Ganó la IA!")
+            someOneWin = true
             return
         }
 
@@ -103,6 +110,6 @@ class Game_3_3_Activity : AppCompatActivity() {
     }
 
     private fun gameContent(): String {
-        return game.joinToString("\n") { it.joinToString(" ") }
+        return juego.joinToString("\n") { it.joinToString(" ") }
     }
 }
