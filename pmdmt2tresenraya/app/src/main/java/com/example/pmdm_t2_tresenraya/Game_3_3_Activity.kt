@@ -20,7 +20,7 @@ class Game_3_3_Activity : AppCompatActivity() {
     private lateinit var juego: Array<Array<CellState>>
     private var isXTurn: Boolean = true
     private lateinit var play: Play
-    private lateinit var ia: IA_plus
+    private lateinit var ia: IA
     private var aiEnabled: Boolean = false
     private var someOneWin: Boolean = false
 
@@ -37,7 +37,7 @@ class Game_3_3_Activity : AppCompatActivity() {
 
         // Inicializar objetos
         play = Play(this)
-        ia = IA_plus(this, 3, 3)
+        ia = IA()
         juego = Array(3) { Array(3) { CellState.CLEAR } }
 
         // Configurar modo IA

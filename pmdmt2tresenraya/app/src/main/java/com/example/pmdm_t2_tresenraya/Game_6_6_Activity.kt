@@ -36,7 +36,7 @@ class Game_6_6_Activity : AppCompatActivity() {
 
         // Inicializar objetos
         play = Play(this)
-        ia = IA_plus(this, 4, 4)
+        ia = IA_plus( 4)
         juego = Array(6) { Array(6) { CellState.CLEAR } }
 
         // Configurar modo IA
