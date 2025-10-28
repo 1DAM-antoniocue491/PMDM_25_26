@@ -57,6 +57,7 @@ class Game_9_9_Activity : AppCompatActivity() {
                         onPlayerMove(row, col, btn)
                     }
                 }
+                play.setBaseColor(btn)
             }
         }
     }

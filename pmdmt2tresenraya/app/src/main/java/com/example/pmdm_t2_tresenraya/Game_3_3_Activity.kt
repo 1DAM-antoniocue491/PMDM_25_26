@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.pmdm_t2_tresenraya.model.CellState
 import com.example.pmdm_t2_tresenraya.model.IA
 import com.example.pmdm_t2_tresenraya.model.IA_plus
 import com.example.pmdm_t2_tresenraya.model.Play
+import com.example.pmdm_t2_tresenraya.model.Prefs
 
 class Game_3_3_Activity : AppCompatActivity() {
 
@@ -23,6 +25,7 @@ class Game_3_3_Activity : AppCompatActivity() {
     private lateinit var ia: IA
     private var aiEnabled: Boolean = false
     private var someOneWin: Boolean = false
+    private lateinit var prefs: Prefs
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +38,15 @@ class Game_3_3_Activity : AppCompatActivity() {
             insets
         }
 
+        prefs = Prefs.getInstance(this)
+
         // Inicializar objetos
         play = Play(this)
         ia = IA()
         juego = Array(3) { Array(3) { CellState.CLEAR } }
 
         // Configurar modo IA
-        aiEnabled = intent.getStringExtra("ia") == "true"
+        aiEnabled = prefs.app.getGameMode() == "true"
 
         setupButtons()
     }
@@ -57,6 +62,7 @@ class Game_3_3_Activity : AppCompatActivity() {
                         onPlayerMove(row, col, btn)
                     }
                 }
+                play.setBaseColor(btn)
             }
         }
     }
@@ -64,24 +70,52 @@ class Game_3_3_Activity : AppCompatActivity() {
     private fun onPlayerMove(row: Int, col: Int, btn: Button) {
         if (juego[row][col] != CellState.CLEAR) return // Casilla ocupada
 
-        Log.i("Prueba", "BTN ID: ${row+1} : ${col+1}")
-        if (isXTurn) {
-            play.setX(btn.id, juego, row, col)
-            juego[row][col] = CellState.CROSS
+        if (prefs.app.getStart() == "player1") {
+            if (isXTurn) {
+                play.setX(btn.id, juego, row, col)
+                juego[row][col] = CellState.CROSS
+            } else {
+                play.setO(btn.id, juego, row, col)
+                juego[row][col] = CellState.CIRCLE
+            }
         } else {
-            play.setO(btn.id, juego, row, col)
-            juego[row][col] = CellState.CIRCLE
+            if (isXTurn) {
+                play.setO(btn.id, juego, row, col)
+                juego[row][col] = CellState.CIRCLE
+            } else {
+                play.setX(btn.id, juego, row, col)
+                juego[row][col] = CellState.CROSS
+            }
         }
-
-        Log.v("Prueba", "game content: " + gameContent())
 
         // Revisar si alguien ganó
         if (ia.checkWin(juego)) {
-            Log.v("Prueba", "¡Ganó ${if (isXTurn) "X" else "O"}!")
             someOneWin = true
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            Toast.makeText(this, "¡Ganó ${if (isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
+            if (prefs.app.getStart() == "player1") {
+                Toast.makeText(this, "¡Ganó ${if (isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
+                if (prefs.app.getGameMode() != "true") {
+                    if (isXTurn) {
+                        prefs.game.smallBoard.putGamesPlayed()
+                        prefs.game.smallBoard.putWinPlayer1()
+                    } else {
+                        prefs.game.smallBoard.putGamesPlayed()
+                        prefs.game.smallBoard.putWinPlayer2()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "¡Ganó ${if (!isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
+                if (prefs.app.getGameMode() != "true") {
+                    if (!isXTurn) {
+                        prefs.game.smallBoard.putGamesPlayed()
+                        prefs.game.smallBoard.putWinPlayer1()
+                    } else {
+                        prefs.game.smallBoard.putGamesPlayed()
+                        prefs.game.smallBoard.putWinPlayer2()
+                    }
+                }
+            }
             return
         } else {
             // Tablas
@@ -95,8 +129,13 @@ class Game_3_3_Activity : AppCompatActivity() {
             if (i == 9) {
                 Log.v("Prueba", "¡Tablas!")
                 someOneWin = true
+                prefs.app.putGameMode("true")
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                if (prefs.app.getGameMode() != "true") {
+                    prefs.game.smallBoard.putGamesPlayed()
+                    prefs.game.smallBoard.putDraws()
+                }
                 Toast.makeText(this, "¡Tablas!", Toast.LENGTH_SHORT).show()
                 return
             }
@@ -111,6 +150,7 @@ class Game_3_3_Activity : AppCompatActivity() {
         }
 
         if (someOneWin)  {
+            prefs.app.putGameMode("true")
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

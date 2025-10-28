@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/gray</item>
         <item name="colorOnPrimary">@color/gray_200</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/light_cian</item>
+        <item name="colorSecondary">@color/dark_cian</item>
         <item name="colorSecondaryVariant">@color/white</item>
     </style>
 

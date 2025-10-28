@@ -5,12 +5,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pmdm_t2_tresenraya.model.Prefs
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var prefs: Prefs
+    private var colorSecondary: Int = 0
+    private var colorOnPrimary: Int = 0
+
+
     @SuppressLint("WrongViewCast", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,112 +32,45 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val game3 = findViewById<Button>(R.id.game3)
+        prefs = Prefs.getInstance(this)
 
-        val typedValue = TypedValue()
-        theme.resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValue, true)
-        val colorFromTheme = typedValue.data
-        game3.setBackgroundColor(colorFromTheme)
-
-
-        val game6 = findViewById<Button>(R.id.game6)
-        val game9 = findViewById<Button>(R.id.game9)
-
-        var boolean_table = arrayOf(true, false, false)
-
-        var tableSize = arrayOf(game3, game6, game9)
-
-        game3.setOnClickListener {
-            setButton(game3, tableSize)
-            boolean_table = arrayOf(true, false, false)
-        }
-
-        game6.setOnClickListener {
-            setButton(game6, tableSize)
-            boolean_table = arrayOf(false, true, false)
-        }
-
-        game9.setOnClickListener {
-            setButton(game9, tableSize)
-            boolean_table = arrayOf(false, false, true)
-        }
-
-        val player1 = findViewById<Button>(R.id.player1)
-        val player2 = findViewById<Button>(R.id.player2)
-
-        player1.setBackgroundColor(colorFromTheme)
-
-        var players = arrayOf(player1, player2)
-
-        player1.setOnClickListener {
-            setButton(player1, players)
-        }
-
-        player2.setOnClickListener {
-            setButton(player2, players)
-        }
-
-        val computer = findViewById<Button>(R.id.computer)
-        val person = findViewById<Button>(R.id.person)
-
-        computer.setBackgroundColor(colorFromTheme)
-
-        var gameMode = arrayOf(computer, person)
-        var gameModeBoolean = true
-
-        computer.setOnClickListener {
-            setButton(computer, gameMode)
-            gameModeBoolean = true
-        }
-
-        person.setOnClickListener {
-            setButton(person, gameMode)
-            gameModeBoolean = false
-        }
-
-        val play = findViewById<Button>(R.id.play)
-
-        play.setOnClickListener {
-            var intent: Intent? = null
-
-
-            if (boolean_table[0]) {
-                intent = Intent(this, Game_3_3_Activity::class.java)
-                if (gameModeBoolean) {
-                    intent.putExtra("ia", "true")
-                } else {
-                    intent.putExtra("ia", "false")
-                }
-            } else if (boolean_table[1]) {
-                intent = Intent(this, Game_6_6_Activity::class.java)
-                if (gameModeBoolean) {
-                    intent.putExtra("ia", "true")
-                } else {
-                    intent.putExtra("ia", "false")
-                }
-            } else {
-                intent = Intent(this, Game_9_9_Activity::class.java)
-                if (gameModeBoolean) {
-                    intent.putExtra("ia", "true")
-                } else {
-                    intent.putExtra("ia", "false")
-                }
-            }
-
+        val settings = findViewById<ImageButton>(R.id.settings)
+        settings.setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
         }
-    }
 
-    fun setButton(btn_add: Button, prueba: Array<Button>) {
+        val account = findViewById<ImageButton>(R.id.acount)
+        account.setOnClickListener {
+            showCustomDialog()
+        }
+
         val typedValueSecondary = TypedValue()
         val typeValueOnPrimary = TypedValue()
 
         theme.resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValueSecondary, true)
         theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typeValueOnPrimary, true)
 
-        val colorSecondary = typedValueSecondary.data
-        val colorOnPrimary = typeValueOnPrimary.data
+        colorSecondary = typedValueSecondary.data
+        colorOnPrimary = typeValueOnPrimary.data
 
+        players()
+
+        contrincante(colorSecondary)
+
+        val play = findViewById<Button>(R.id.play)
+
+        play.setOnClickListener {
+            var intent = Intent(this, Game_3_3_Activity::class.java)
+            startActivity(intent)
+            val player1 = findViewById<Button>(R.id.player1)
+            val player2 = findViewById<Button>(R.id.player2)
+            player1.setBackgroundColor(colorOnPrimary)
+            player2.setBackgroundColor(colorOnPrimary)
+        }
+    }
+
+    fun setButton(btn_add: Button, prueba: Array<Button>) {
         for (btn in prueba) {
             if (btn == btn_add) {
                 btn.setBackgroundColor(colorSecondary)
@@ -136,4 +79,91 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun players () {
+        val player1 = findViewById<Button>(R.id.player1)
+        val player2 = findViewById<Button>(R.id.player2)
+
+        val players = arrayOf(player1, player2)
+
+        if (prefs.app.getGameMode() == "false") {
+            player1.setBackgroundColor(colorSecondary)
+            prefs.app.putStart("player1")
+        } else {
+            player1.setBackgroundColor(colorOnPrimary)
+            player2.setBackgroundColor(colorOnPrimary)
+        }
+
+        player1.setOnClickListener {
+            if (prefs.app.getGameMode() == "false") {
+                setButton(player1, players)
+                prefs.app.putStart("player1")
+            }
+        }
+
+        player2.setOnClickListener {
+            if (prefs.app.getGameMode() == "false") {
+                setButton(player2, players)
+                prefs.app.putStart("player2")
+            }
+        }
+    }
+
+    fun contrincante(colorFromTheme: Int){
+        val computer = findViewById<Button>(R.id.computer)
+        val person = findViewById<Button>(R.id.person)
+
+        if (prefs.app.getGameMode() == "true") {
+            computer.setBackgroundColor(colorFromTheme)
+            prefs.app.putGameMode("true")
+        } else {
+            person.setBackgroundColor(colorFromTheme)
+            prefs.app.putGameMode("false")
+        }
+
+        var gameMode = arrayOf(computer, person)
+
+        computer.setOnClickListener {
+            setButton(computer, gameMode)
+            prefs.app.putGameMode("true")
+            players()
+        }
+
+        person.setOnClickListener {
+            setButton(person, gameMode)
+            prefs.app.putGameMode("false")
+            players()
+        }
+    }
+
+    @SuppressLint("MissingInflatedId")
+    fun showCustomDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_acount, null)
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .create()
+
+        // Para que el fondo fuera del diálogo sea semitransparente
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        // Referencias a los botones
+        val statistics = dialogView.findViewById<Button>(R.id.statistics)
+
+        statistics.setOnClickListener {
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val levels = dialogView.findViewById<Button>(R.id.levels)
+
+        levels.setOnClickListener {
+            val intent = Intent(this, LevelActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        dialog.show()
+    }
+
 }

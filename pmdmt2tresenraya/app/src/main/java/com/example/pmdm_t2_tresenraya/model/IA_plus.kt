@@ -71,9 +71,6 @@ class IA_plus (
 
         val bestAbsoluteMove = bestMoves.maxByOrNull { it.first }?.second ?: Pair(0, 0)
 
-
-        Log.i("Prueba", bestAbsoluteMove.toString())
-
         return bestAbsoluteMove
     }
 
@@ -95,7 +92,6 @@ class IA_plus (
             }
         }
 
-        Log.i("AI", "Mejor movimiento local: $bestMove (score=$bestScore)")
         return Pair(bestScore, bestMove)
     }
 

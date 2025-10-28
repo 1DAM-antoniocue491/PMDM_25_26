@@ -7,17 +7,12 @@ import com.google.android.material.R
 
 class Play (val activity: Activity) {
 
-    fun setBaseColor(celda: Array<Array<Button>>) {
+    fun setBaseColor(celda: Button?) {
         val typedValue = TypedValue()
         activity.theme.resolveAttribute(R.attr.colorOnPrimary, typedValue, true)
         val colorFromTheme = typedValue.data
 
-
-        for (row in celda) {
-            for (colunm in row) {
-                colunm.setBackgroundColor(colorFromTheme)
-            }
-        }
+        celda?.setBackgroundColor(colorFromTheme)
     }
 
     fun setX(btn_id: Int, posiciones: Array<Array<CellState>>, posX: Int, posY: Int) {
