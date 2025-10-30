@@ -28,4 +28,6 @@
     <string name="_9x9">9x9</string>
     <string name="_3x3">3x3</string>
     <string name="reiniciar">Reiniciar</string>
+    <string name="ia_vs_player">IA VS Player</string>
+    <string name="player_vs_player">Player VS Player</string>
 </resources>

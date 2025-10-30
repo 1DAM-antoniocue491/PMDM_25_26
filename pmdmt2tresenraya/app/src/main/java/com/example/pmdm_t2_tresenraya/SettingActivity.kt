@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
+import android.text.LoginFilter
+import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.ImageButton
@@ -15,10 +17,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.R
+import com.example.pmdm_t2_tresenraya.model.Play
+import com.example.pmdm_t2_tresenraya.model.Prefs
 import java.util.Locale
 
 
 class SettingActivity : AppCompatActivity() {
+    private lateinit var prefs: Prefs
+    private var color: String = ""
+    val play = Play(this)
+    private lateinit var defaultTheme: String
+    private lateinit var defaultLanguage: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,7 +39,12 @@ class SettingActivity : AppCompatActivity() {
             insets
         }
 
+        prefs = Prefs.getInstance(this)
+
+        Log.i("Prueba", "Si ha iniciado la app")
+
         initButtons()
+        stylesButtons()
     }
 
     fun stylesButtons(tema: String) {
@@ -60,51 +75,62 @@ class SettingActivity : AppCompatActivity() {
         }
     }
 
-
     fun initButtons() {
         val typedValue = TypedValue()
         val theme = theme
 
-        theme.resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValue, true)
-        val colorSecondary = typedValue.data
-
         theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)
         val colorOnPrimary = typedValue.data
-
 
         val darkBtn = findViewById<Button>(R.id.dark)
         val lightBtn = findViewById<Button>(R.id.light)
 
+        val back = findViewById<ImageButton>(R.id.back)
+        back.setOnClickListener {
+            var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         var tema: String = ""
+
+        var logicTheme: Array<Boolean> = arrayOf()
 
         val nightModeFlags = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (nightModeFlags) {
             Configuration.UI_MODE_NIGHT_YES -> {
-                darkBtn.setBackgroundColor(colorSecondary)
+                play.styleButton(darkBtn, this)
+                logicTheme = arrayOf(false, true)
                 tema = "dark"
                 stylesButtons("dark")
+                defaultTheme = "dark"
             }
             Configuration.UI_MODE_NIGHT_NO -> {
-                lightBtn.setBackgroundColor(colorSecondary)
+                play.styleButton(lightBtn, this)
+                logicTheme = arrayOf(true, false)
                 tema = "light"
                 stylesButtons("light")
+                defaultTheme = "light"
             }
         }
 
         lightBtn.setOnClickListener {
-            lightBtn.setBackgroundColor(colorSecondary)
+            play.styleButton(lightBtn, this)
             darkBtn.setBackgroundColor(colorOnPrimary)
             tema = "light"
+            logicTheme = arrayOf(true, false)
         }
 
         darkBtn.setOnClickListener {
             lightBtn.setBackgroundColor(colorOnPrimary)
-            darkBtn.setBackgroundColor(colorSecondary)
+            play.styleButton(darkBtn, this)
             tema = "dark"
+            logicTheme = arrayOf(false, true)
         }
 
         val spain = findViewById<Button>(R.id.spanish)
         val english = findViewById<Button>(R.id.english)
+
+        var logicLanguage: Array<Boolean> = arrayOf()
 
         val currentLocale: Locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             this.resources.configuration.locales.get(0)
@@ -115,24 +141,36 @@ class SettingActivity : AppCompatActivity() {
         val languageCode = currentLocale.language
         var language: String = languageCode
         when (languageCode) {
-            "es" -> spain.setBackgroundColor(colorSecondary)
-            "en" -> english.setBackgroundColor(colorSecondary)
+            "es" -> {
+                play.styleButton(spain, this)
+                logicLanguage = arrayOf(true, false)
+                defaultLanguage = "es"
+            }
+            "en" -> {
+                play.styleButton(english, this)
+                logicLanguage = arrayOf(false, true)
+                defaultLanguage = "en"
+            }
         }
 
 
         spain.setOnClickListener {
             english.setBackgroundColor(colorOnPrimary)
-            spain.setBackgroundColor(colorSecondary)
+            play.styleButton(spain, this)
             language = "es"
+            logicLanguage = arrayOf(true, false)
         }
 
         english.setOnClickListener {
             spain.setBackgroundColor(colorOnPrimary)
-            english.setBackgroundColor(colorSecondary)
+            play.styleButton(english, this)
             language = "en"
+            logicLanguage = arrayOf(false, true)
         }
 
+        val default = findViewById<Button>(R.id.defaultSettings)
         val apply = findViewById<Button>(R.id.aplly)
+
         apply.setOnClickListener {
             when (tema) {
                 "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -140,39 +178,92 @@ class SettingActivity : AppCompatActivity() {
             }
             stylesButtons(tema)
             AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(language))
+
+            if (color != "") {
+                prefs.app.putStyle(color, this)
+            }
+
+            var buttons: Array<Button> = arrayOf()
+
+            if (logicTheme[0]) {
+                if (logicLanguage[0])
+                    buttons = arrayOf(default, apply, lightBtn, spain)
+                else
+                    buttons = arrayOf(default, apply, lightBtn, english)
+            } else {
+                if (logicLanguage[0])
+                    buttons = arrayOf(default, apply, darkBtn, spain)
+                else
+                    buttons = arrayOf(default, apply, darkBtn, english)
+            }
+            play.styleButton(buttons, this)
+
+            Log.i("Prueba", prefs.app.getStyle(this).toString())
         }
 
-        val default = findViewById<Button>(R.id.defaultSettings)
         default.setOnClickListener {
-            val nightModeFlags = this.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-            when (nightModeFlags) {
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    darkBtn.setBackgroundColor(colorSecondary)
+            when (defaultTheme) {
+                "dark" -> {
+                    play.styleButton(darkBtn, this)
                     lightBtn.setBackgroundColor(colorOnPrimary)
                     tema = "dark"
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                 }
-                Configuration.UI_MODE_NIGHT_NO -> {
-                    lightBtn.setBackgroundColor(colorSecondary)
+                "light" -> {
+                    play.styleButton(lightBtn, this)
                     darkBtn.setBackgroundColor(colorOnPrimary)
                     tema = "light"
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
                 }
             }
 
-            when (languageCode) {
+            when (defaultLanguage) {
                 "es" -> {
-                    spain.setBackgroundColor(colorSecondary)
+                    play.styleButton(spain, this)
                     english.setBackgroundColor(colorOnPrimary)
                     language = "es"
                 }
                 "en" -> {
-                    english.setBackgroundColor(colorSecondary)
+                    play.styleButton(english, this)
                     spain.setBackgroundColor(colorOnPrimary)
                     language = "en"
                 }
             }
 
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(languageCode))
+            Log.i("Prueba", defaultLanguage)
+            AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(defaultLanguage))
+
+            prefs.app.putStyle(color, this, true)
+            var buttons = arrayOf(default, apply)
+            play.styleButton(buttons, this)
+        }
+
+        var buttons = arrayOf(default, apply)
+        play.styleButton(buttons, this)
+    }
+
+    fun stylesButtons() {
+        val red = findViewById<Button>(R.id.red)
+        val orange = findViewById<Button>(R.id.yellow)
+        val green = findViewById<Button>(R.id.green)
+        val cian = findViewById<Button>(R.id.cian)
+        val blue = findViewById<Button>(R.id.blue)
+        val pink = findViewById<Button>(R.id.pink)
+
+        val buttons = arrayOf(red, orange, green, cian, blue, pink)
+
+        for (btn in buttons) {
+            btn.setOnClickListener {
+                when (btn) {
+                    red -> color = "red"
+                    orange -> color = "orange"
+                    green -> color = "green"
+                    cian -> color = "cian"
+                    blue -> color = "blue"
+                    pink -> color = "pink"
+                }
+                Log.i("Prueba", "Variable color cambiada: $color")
+            }
         }
     }
 }

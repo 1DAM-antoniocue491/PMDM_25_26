@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">pmdm-t2-tresenraya</string>
+    <string name="tic_tac_toe">TIC TAC TOE</string>
+    <string name="board_size">Board Size</string>
+    <string name="modo_de_juego">Game Mode</string>
+    <string name="player_1">Player 1</string>
+    <string name="vs">VS</string>
+    <string name="player_2">Player 2</string>
+    <string name="connect_3_to_win">Connect 3 to win</string>
+    <string name="jugador_inicial">Initial player</string>
+    <string name="settings">Settings</string>
+    <string name="theme">Theme</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="language">Language</string>
+    <string name="spanish">Spanish</string>
+    <string name="english">English</string>
+    <string name="aplly">Aplly</string>
+    <string name="restart_to_default">Restart to default</string>
+    <string name="estilo">Estilo</string>
+    <string name="statistics">Statistics</string>
+    <string name="games_played">Games Played</string>
+    <string name="win_player_1">Win player 1</string>
+    <string name="win_player_2">Win player 2</string>
+    <string name="draws">Draws</string>
+    <string name="_9x9">9x9</string>
+    <string name="_3x3">3x3</string>
+    <string name="reiniciar">Reiniciar</string>
+</resources>

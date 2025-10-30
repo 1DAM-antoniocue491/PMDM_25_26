@@ -13,7 +13,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.CellState
 import com.example.pmdm_t2_tresenraya.model.IA
-import com.example.pmdm_t2_tresenraya.model.IA_plus
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
 
@@ -97,22 +96,25 @@ class Game_3_3_Activity : AppCompatActivity() {
                 Toast.makeText(this, "¡Ganó ${if (isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
                 if (prefs.app.getGameMode() != "true") {
                     if (isXTurn) {
-                        prefs.game.smallBoard.putGamesPlayed()
-                        prefs.game.smallBoard.putWinPlayer1()
+                        prefs.game.pvp.putGamesPlayed()
+                        prefs.game.pvp.putWinPlayer1()
                     } else {
-                        prefs.game.smallBoard.putGamesPlayed()
-                        prefs.game.smallBoard.putWinPlayer2()
+                        prefs.game.pvp.putGamesPlayed()
+                        prefs.game.pvp.putWinPlayer2()
                     }
+                } else {
+                    prefs.game.iap.putGamesPlayed()
+                    prefs.game.iap.putWinPlayer()
                 }
             } else {
                 Toast.makeText(this, "¡Ganó ${if (!isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
                 if (prefs.app.getGameMode() != "true") {
                     if (!isXTurn) {
-                        prefs.game.smallBoard.putGamesPlayed()
-                        prefs.game.smallBoard.putWinPlayer1()
+                        prefs.game.pvp.putGamesPlayed()
+                        prefs.game.pvp.putWinPlayer1()
                     } else {
-                        prefs.game.smallBoard.putGamesPlayed()
-                        prefs.game.smallBoard.putWinPlayer2()
+                        prefs.game.pvp.putGamesPlayed()
+                        prefs.game.pvp.putWinPlayer2()
                     }
                 }
             }
@@ -133,8 +135,16 @@ class Game_3_3_Activity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 if (prefs.app.getGameMode() != "true") {
-                    prefs.game.smallBoard.putGamesPlayed()
-                    prefs.game.smallBoard.putDraws()
+                    prefs.game.pvp.putGamesPlayed()
+                    prefs.game.pvp.putDraws()
+                } else {
+                    if (aiEnabled) {
+                        prefs.game.iap.putGamesPlayed()
+                        prefs.game.iap.putDraws()
+                    } else {
+                        prefs.game.pvp.putGamesPlayed()
+                        prefs.game.pvp.putDraws()
+                    }
                 }
                 Toast.makeText(this, "¡Tablas!", Toast.LENGTH_SHORT).show()
                 return
@@ -166,8 +176,6 @@ class Game_3_3_Activity : AppCompatActivity() {
         btn?.let {
             play.setO(btn.id, juego, row, col)
             juego[row][col] = CellState.CIRCLE
-            Log.v("Prueba", "IA movió:")
-            Log.v("Prueba", gameContent())
         }
 
         // Revisar si IA ganó
@@ -175,6 +183,8 @@ class Game_3_3_Activity : AppCompatActivity() {
             Log.v("Prueba", "¡Ganó la IA!")
             Toast.makeText(this, "¡Ganó la IA!", Toast.LENGTH_SHORT).show()
             someOneWin = true
+            prefs.game.iap.putGamesPlayed()
+            prefs.game.iap.putWinIA()
             return
         } else {
             // Tablas
@@ -186,6 +196,8 @@ class Game_3_3_Activity : AppCompatActivity() {
                 }
             }
             if (i == 9) {
+                prefs.game.iap.putGamesPlayed()
+                prefs.game.iap.putDraws()
                 Log.v("Prueba", "¡Tablas!")
                 someOneWin = true
                 val intent = Intent(this, MainActivity::class.java)

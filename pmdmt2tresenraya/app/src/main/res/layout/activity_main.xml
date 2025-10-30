@@ -30,12 +30,12 @@
             android:layout_height="match_parent"/>
 
         <ImageButton
-            android:id="@+id/acount"
+            android:id="@+id/statistics"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/acount"
+            app:srcCompat="@drawable/statistics"
             android:background="?attr/colorPrimary"
             app:tint="?attr/colorPrimaryVariant"/>
     </LinearLayout>

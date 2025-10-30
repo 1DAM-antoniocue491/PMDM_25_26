@@ -1,0 +1,21 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Default" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/dark_sky_blue</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorOnPrimary">@color/gray_200</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/dark_cian</item>
+        <item name="colorSecondaryVariant">@color/white</item>
+    </style>
+
+    <style name="Theme.Default.CeldaJuego">
+        <item name="android:padding">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="backgroundTint">?attr/colorOnPrimary</item>
+    </style>
+</resources>

@@ -31,8 +31,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/_3x3"
-            android:textSize="24dp"
+            android:text="@string/player_vs_player"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimaryVariant"
             android:background="@drawable/border_bottom"
@@ -83,7 +83,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Igames_played"
+                    android:id="@+id/game_PVP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -144,7 +144,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/IwinplayerI"
+                    android:id="@+id/win1_PVP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -205,7 +205,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/IwinplayerII"
+                    android:id="@+id/win2_PVP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -266,7 +266,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Idraws"
+                    android:id="@+id/draws_PVP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -286,14 +286,14 @@
         android:orientation="vertical"
         android:padding="20dp"
         android:background="@drawable/component_rounded1"
-        android:layout_margin="10dp"
-        android:visibility="invisible">
+        android:layout_margin="10dp">
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/_6x6"
-            android:textSize="24dp"
+            android:text="@string/ia_vs_player"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="?attr/colorPrimaryVariant"
             android:background="@drawable/border_bottom"
@@ -344,7 +344,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/IIgames_played"
+                    android:id="@+id/game_IAP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -383,7 +383,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/win_player_1"
+                    android:text="Player"
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimaryVariant"
                     android:paddingBottom="5dp"
@@ -405,7 +405,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/IIwinplayerI"
+                    android:id="@+id/win1_IAP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -444,7 +444,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/win_player_2"
+                    android:text="IA"
                     android:textStyle="bold"
                     android:textColor="?attr/colorPrimaryVariant"
                     android:paddingBottom="5dp"
@@ -466,7 +466,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/IIwinplayerII"
+                    android:id="@+id/win2_IAP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -527,7 +527,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/IIdraws"
+                    android:id="@+id/draws_IAP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/_0"
@@ -540,278 +540,29 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@drawable/component_rounded1"
-        android:layout_margin="10dp"
-        android:visibility="invisible">
+        android:layout_marginBottom="15dp">
 
-        <TextView
-            android:id="@+id/textView3"
+        <Button
+            android:id="@+id/btn_restart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/_9x9"
-            android:textSize="24dp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimaryVariant"
-            android:background="@drawable/border_bottom"
-            android:paddingBottom="5dp"
+            android:text="@string/reiniciar"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:backgroundTint="?attr/colorSecondary"
+            android:drawableTop="@drawable/component_rounded1"
+            android:gravity="center"
+            android:layout_margin="10dp"
             />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
-                    app:srcCompat="@drawable/game_statistics" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/games_played"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:layout_marginStart="5dp"
-                    />
-
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/IIIgames_played"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
-                    app:srcCompat="@drawable/win_player1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/win_player_1"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:layout_marginStart="5dp"
-                    />
-
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/IIIwinplayerI"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
-                    app:srcCompat="@drawable/win_player2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/win_player_2"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:layout_marginStart="5dp"
-                    />
-
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/IIIwinplayerII"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    />
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="?attr/colorPrimaryVariant"
-                    app:srcCompat="@drawable/draws" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/draws"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp"
-                    android:layout_marginStart="5dp"
-                    />
-
-
-            </LinearLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/IIIdraws"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_0"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimaryVariant"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    />
-
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_restart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/reiniciar"
-        android:textColor="?attr/colorSecondaryVariant"
-        android:backgroundTint="?attr/colorSecondary"
-        android:drawableTop="@drawable/component_rounded1"
-        android:gravity="center"
-        />
 
 </LinearLayout>

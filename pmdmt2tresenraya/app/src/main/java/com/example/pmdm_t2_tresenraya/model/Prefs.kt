@@ -1,8 +1,14 @@
 package com.example.pmdm_t2_tresenraya.model
 
+import android.R.attr.theme
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.util.Log
+import android.util.TypedValue
 import androidx.core.content.edit
+import androidx.core.content.ContextCompat
+import com.example.pmdm_t2_tresenraya.R
 
 class Prefs private constructor(context: Context) {
     companion object {
@@ -59,29 +65,101 @@ class Prefs private constructor(context: Context) {
             return prefs.getString("language", "es") ?: "es"
         }
 
-        fun putStyle(style: Int) {
-            prefs.edit { putInt("style", style) }
+        fun putStyle(color: String, context: Context, defaultColor: Boolean = false) {
+            var colorFinal: String? = ""
+
+            Log.i("Prueba", "Color a cuardar: $color")
+
+            if (defaultColor) {
+                Log.i("Prueba", "El color por defecto se ha activado")
+                colorFinal = "cian"
+            } else
+                colorFinal = color
+
+            prefs.edit {
+                putString("style", colorFinal)
+            }
         }
-        fun getStyle(): Int {
-            return prefs.getInt("style", 0)
+
+        fun getStyle(context: Context): Int {
+            val theme = getTheme(context)
+
+            return when (prefs.getString("style", "")) {
+                "red" -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_red)
+                    else
+                        ContextCompat.getColor(context, R.color.light_red)
+                }
+                "orange" -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_orange)
+                    else
+                        ContextCompat.getColor(context, R.color.light_orange)
+                }
+                "green" -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_green)
+                    else
+                        ContextCompat.getColor(context, R.color.light_green)
+                }
+                "cian" -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_cian)
+                    else
+                        ContextCompat.getColor(context, R.color.light_cian)
+                }
+                "blue" -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_blue)
+                    else
+                        ContextCompat.getColor(context, R.color.light_purple)
+                }
+                "pink" -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_pink)
+                    else
+                        ContextCompat.getColor(context, R.color.light_pink)
+                }
+
+                else -> {
+                    if (theme)
+                        ContextCompat.getColor(context, R.color.dark_cian)
+                    else
+                        ContextCompat.getColor(context, R.color.light_cian)
+                }
+            }
+        }
+
+        private fun getTheme(context: Context): Boolean {
+            val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            when (nightModeFlags) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    return true
+                }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    return false
+                }
+            }
+            return true
         }
     }
 
     class GamePrefs(private val prefs: SharedPreferences) {
-        val smallBoard = SmallBoard(prefs)
-        val mediumBoard = MediumBoard(prefs)
-        val bigBoard = BigBoard(prefs)
-        class SmallBoard(private val prefs: SharedPreferences) {
+        val pvp = PVP(prefs)
+        val iap = IA(prefs)
+
+        class PVP(private val prefs: SharedPreferences) {
             // Partidas jugadas
             fun putGamesPlayed() {
                 var games = getGamesPlayed()
                 games++
                 prefs.edit {
-                    putInt("smallBoardGamesPlayed", games)
+                    putInt("game_PVP", games)
                 }
             }
             fun getGamesPlayed(): Int {
-                return prefs.getInt("smallBoardGamesPlayed", 0)
+                return prefs.getInt("game_PVP", 0)
             }
 
             // Puntaje de partidas ganadas el jugador 1
@@ -89,11 +167,11 @@ class Prefs private constructor(context: Context) {
                 var points = getWinPlayer1()
                 points++
                 prefs.edit {
-                    putInt("smallBoardWinPlayer1", points)
+                    putInt("win1_PVP", points)
                 }
             }
             fun getWinPlayer1(): Int {
-                return prefs.getInt("smallBoardWinPlayer1", 0)
+                return prefs.getInt("win1_PVP", 0)
             }
 
             // Puntaje de partidas ganadas el jugador 2
@@ -101,11 +179,11 @@ class Prefs private constructor(context: Context) {
                 var points = getWinPlayer2()
                 points++
                 prefs.edit {
-                    putInt("smallBoardWinPlayer2", points)
+                    putInt("win2_PVP", points)
                 }
             }
             fun getWinPlayer2(): Int {
-                return prefs.getInt("smallBoardWinPlayer2", 0)
+                return prefs.getInt("win2_PVP", 0)
             }
 
             // Puntaje de tablas
@@ -113,65 +191,65 @@ class Prefs private constructor(context: Context) {
                 var points = getDraws()
                 points++
                 prefs.edit {
-                    putInt("smallDraw", points)
+                    putInt("draws_PVP", points)
                 }
             }
             fun getDraws(): Int {
-                return prefs.getInt("smallDraw", 0)
+                return prefs.getInt("draws_PVP", 0)
             }
 
             // Reiniciar todos los datos
             fun restartAll() {
                 prefs.edit {
-                    putInt("smallBoardGamesPlayed", 0)
+                    putInt("game_PVP", 0)
                 }
                 prefs.edit {
-                    putInt("smallBoardWinPlayer1", 0)
+                    putInt("win1_PVP", 0)
                 }
                 prefs.edit {
-                    putInt("smallBoardWinPlayer2", 0)
+                    putInt("win2_PVP", 0)
                 }
                 prefs.edit {
-                    putInt("smallDraw", 0)
+                    putInt("draws_PVP", 0)
                 }
             }
         }
 
-        class MediumBoard(private val prefs: SharedPreferences) {
+        class IA(private val prefs: SharedPreferences) {
             // Partidas jugadas
             fun putGamesPlayed() {
                 var games = getGamesPlayed()
                 games++
                 prefs.edit {
-                    putInt("mediumBoardGamesPlayed", games)
+                    putInt("game_IAP", games)
                 }
             }
             fun getGamesPlayed(): Int {
-                return prefs.getInt("mediumBoardGamesPlayed", 0)
+                return prefs.getInt("game_IAP", 0)
             }
 
             // Puntaje de partidas ganadas el jugador 1
-            fun putWinPlayer1() {
-                var points = getWinPlayer1()
+            fun putWinPlayer() {
+                var points = getWinPlayer()
                 points++
                 prefs.edit {
-                    putInt("mediumBoardWinPlayer1", points)
+                    putInt("win1_IAP", points)
                 }
             }
-            fun getWinPlayer1(): Int {
-                return prefs.getInt("mediumBoardWinPlayer1", 0)
+            fun getWinPlayer(): Int {
+                return prefs.getInt("win1_IAP", 0)
             }
 
             // Puntaje de partidas ganadas el jugador 2
-            fun putWinPlayer2() {
-                var points = getWinPlayer2()
+            fun putWinIA() {
+                var points = getWinIA()
                 points++
                 prefs.edit {
-                    putInt("mediumBoardWinPlayer2", points)
+                    putInt("win2_IAP", points)
                 }
             }
-            fun getWinPlayer2(): Int {
-                return prefs.getInt("mediumBoardWinPlayer2", 0)
+            fun getWinIA(): Int {
+                return prefs.getInt("win2_IAP", 0)
             }
 
             // Puntaje de tablas
@@ -179,92 +257,26 @@ class Prefs private constructor(context: Context) {
                 var points = getDraws()
                 points++
                 prefs.edit {
-                    putInt("mediumDraw", points)
+                    putInt("draws_IAP", points)
                 }
             }
             fun getDraws(): Int {
-                return prefs.getInt("mediumDraw", 0)
+                return prefs.getInt("draws_IAP", 0)
             }
 
             // Reiniciar todos los datos
             fun restartAll() {
                 prefs.edit {
-                    putInt("mediumBoardGamesPlayed", 0)
+                    putInt("game_IAP", 0)
                 }
                 prefs.edit {
-                    putInt("mediumBoardWinPlayer1", 0)
+                    putInt("win1_IAP", 0)
                 }
                 prefs.edit {
-                    putInt("mediumBoardWinPlayer2", 0)
+                    putInt("win2_IAP", 0)
                 }
                 prefs.edit {
-                    putInt("mediumDraw", 0)
-                }
-            }
-        }
-
-        class BigBoard(private val prefs: SharedPreferences) {
-            // Partidas jugadas
-            fun putGamesPlayed() {
-                var games = getGamesPlayed()
-                games++
-                prefs.edit {
-                    putInt("bigBoardGamesPlayed", games)
-                }
-            }
-            fun getGamesPlayed(): Int {
-                return prefs.getInt("bigBoardGamesPlayed", 0)
-            }
-
-            // Puntaje de partidas ganadas el jugador 1
-            fun putWinPlayer1() {
-                var points = getWinPlayer1()
-                points++
-                prefs.edit {
-                    putInt("bigBoardWinPlayer1", points)
-                }
-            }
-            fun getWinPlayer1(): Int {
-                return prefs.getInt("bigBoardWinPlayer1", 0)
-            }
-
-            // Puntaje de partidas ganadas el jugador 2
-            fun putWinPlayer2() {
-                var points = getWinPlayer2()
-                points++
-                prefs.edit {
-                    putInt("bigBoardWinPlayer2", points)
-                }
-            }
-            fun getWinPlayer2(): Int {
-                return prefs.getInt("bigBoardWinPlayer2", 0)
-            }
-
-            // Puntaje de tablas
-            fun putDraws() {
-                var points = getDraws()
-                points++
-                prefs.edit {
-                    putInt("bigDraw", points)
-                }
-            }
-            fun getDraws(): Int {
-                return prefs.getInt("bigDraw", 0)
-            }
-
-            // Reiniciar todos los datos
-            fun restartAll() {
-                prefs.edit {
-                    putInt("bigBoardGamesPlayed", 0)
-                }
-                prefs.edit {
-                    putInt("bigBoardWinPlayer1", 0)
-                }
-                prefs.edit {
-                    putInt("bigBoardWinPlayer2", 0)
-                }
-                prefs.edit {
-                    putInt("bigDraw", 0)
+                    putInt("draws_IAP", 0)
                 }
             }
         }

@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
 
 class StatisticsActivity : AppCompatActivity() {
@@ -25,32 +26,30 @@ class StatisticsActivity : AppCompatActivity() {
         }
 
         prefs = Prefs.getInstance(this)
+        val play = Play(this)
 
         updateValues()
 
         val restart = findViewById<Button>(R.id.btn_restart)
+
+        play.styleButton(restart,this)
+
         restart.setOnClickListener {
-            prefs.game.smallBoard.restartAll()
-            prefs.game.mediumBoard.restartAll()
-            prefs.game.bigBoard.restartAll()
+            prefs.game.pvp.restartAll()
+            prefs.game.iap.restartAll()
             updateValues()
         }
     }
 
     fun updateValues() {
-        findViewById<TextView>(R.id.Igames_played).text = prefs.game.smallBoard.getGamesPlayed().toString()
-        findViewById<TextView>(R.id.IwinplayerI).text = prefs.game.smallBoard.getWinPlayer1().toString()
-        findViewById<TextView>(R.id.IwinplayerII).text = prefs.game.smallBoard.getWinPlayer2().toString()
-        findViewById<TextView>(R.id.Idraws).text = prefs.game.smallBoard.getDraws().toString()
+        findViewById<TextView>(R.id.game_PVP).text = prefs.game.pvp.getGamesPlayed().toString()
+        findViewById<TextView>(R.id.win1_PVP).text = prefs.game.pvp.getWinPlayer1().toString()
+        findViewById<TextView>(R.id.win2_PVP).text = prefs.game.pvp.getWinPlayer2().toString()
+        findViewById<TextView>(R.id.draws_PVP).text = prefs.game.pvp.getDraws().toString()
 
-        findViewById<TextView>(R.id.IIgames_played).text = prefs.game.mediumBoard.getGamesPlayed().toString()
-        findViewById<TextView>(R.id.IIwinplayerI).text = prefs.game.mediumBoard.getWinPlayer1().toString()
-        findViewById<TextView>(R.id.IIwinplayerII).text = prefs.game.mediumBoard.getWinPlayer2().toString()
-        findViewById<TextView>(R.id.IIdraws).text = prefs.game.mediumBoard.getDraws().toString()
-
-        findViewById<TextView>(R.id.IIIgames_played).text = prefs.game.bigBoard.getGamesPlayed().toString()
-        findViewById<TextView>(R.id.IIIwinplayerI).text = prefs.game.bigBoard.getWinPlayer1().toString()
-        findViewById<TextView>(R.id.IIIwinplayerII).text = prefs.game.bigBoard.getWinPlayer2().toString()
-        findViewById<TextView>(R.id.IIIdraws).text = prefs.game.bigBoard.getDraws().toString()
+        findViewById<TextView>(R.id.game_IAP).text = prefs.game.iap.getGamesPlayed().toString()
+        findViewById<TextView>(R.id.win1_IAP).text = prefs.game.iap.getWinPlayer().toString()
+        findViewById<TextView>(R.id.win2_IAP).text = prefs.game.iap.getWinIA().toString()
+        findViewById<TextView>(R.id.draws_IAP).text = prefs.game.iap.getDraws().toString()
     }
 }

@@ -3,6 +3,7 @@ package com.example.pmdm_t2_tresenraya
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.ImageButton
@@ -13,12 +14,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
 
 class MainActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
     private var colorSecondary: Int = 0
     private var colorOnPrimary: Int = 0
+    private lateinit var playClass: Play
 
 
     @SuppressLint("WrongViewCast", "MissingInflatedId")
@@ -32,6 +35,10 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        Log.i("Prueba", "Se ha iniciado el main")
+
+        playClass = Play(this)
+
         prefs = Prefs.getInstance(this)
 
         val settings = findViewById<ImageButton>(R.id.settings)
@@ -40,9 +47,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val account = findViewById<ImageButton>(R.id.acount)
-        account.setOnClickListener {
-            showCustomDialog()
+        val statistics = findViewById<ImageButton>(R.id.statistics)
+        statistics.setOnClickListener {
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
         }
 
         val typedValueSecondary = TypedValue()
@@ -56,9 +64,11 @@ class MainActivity : AppCompatActivity() {
 
         players()
 
-        contrincante(colorSecondary)
+        contrincante()
 
         val play = findViewById<Button>(R.id.play)
+
+        playClass.styleButton(play, this)
 
         play.setOnClickListener {
             var intent = Intent(this, Game_3_3_Activity::class.java)
@@ -70,10 +80,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun setButton(btn_add: Button, prueba: Array<Button>) {
-        for (btn in prueba) {
+    fun setButton(btn_add: Button, buttons: Array<Button>) {
+        for (btn in buttons) {
             if (btn == btn_add) {
-                btn.setBackgroundColor(colorSecondary)
+                playClass.styleButton(btn, this)
             } else {
                 btn.setBackgroundColor(colorOnPrimary)
             }
@@ -87,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         val players = arrayOf(player1, player2)
 
         if (prefs.app.getGameMode() == "false") {
-            player1.setBackgroundColor(colorSecondary)
+            playClass.styleButton(player1, this)
             prefs.app.putStart("player1")
         } else {
             player1.setBackgroundColor(colorOnPrimary)
@@ -109,15 +119,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun contrincante(colorFromTheme: Int){
+    fun contrincante(){
         val computer = findViewById<Button>(R.id.computer)
         val person = findViewById<Button>(R.id.person)
 
         if (prefs.app.getGameMode() == "true") {
-            computer.setBackgroundColor(colorFromTheme)
+            playClass.styleButton(computer, this)
             prefs.app.putGameMode("true")
         } else {
-            person.setBackgroundColor(colorFromTheme)
+            playClass.styleButton(person, this)
             prefs.app.putGameMode("false")
         }
 
@@ -134,36 +144,6 @@ class MainActivity : AppCompatActivity() {
             prefs.app.putGameMode("false")
             players()
         }
-    }
-
-    @SuppressLint("MissingInflatedId")
-    fun showCustomDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_acount, null)
-
-        val dialog = AlertDialog.Builder(this)
-            .setView(dialogView)
-            .create()
-
-        // Para que el fondo fuera del diálogo sea semitransparente
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-        // Referencias a los botones
-        val statistics = dialogView.findViewById<Button>(R.id.statistics)
-
-        statistics.setOnClickListener {
-            val intent = Intent(this, StatisticsActivity::class.java)
-            startActivity(intent)
-        }
-
-        val levels = dialogView.findViewById<Button>(R.id.levels)
-
-        levels.setOnClickListener {
-            val intent = Intent(this, LevelActivity::class.java)
-            startActivity(intent)
-        }
-
-
-        dialog.show()
     }
 
 }
