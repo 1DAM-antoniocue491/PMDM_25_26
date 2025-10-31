@@ -16,12 +16,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.TTS
 
 class MainActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
     private var colorSecondary: Int = 0
     private var colorOnPrimary: Int = 0
     private lateinit var playClass: Play
+    private lateinit var tts: TTS
 
 
     @SuppressLint("WrongViewCast", "MissingInflatedId")
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         Log.i("Prueba", "Se ha iniciado el main")
 
         playClass = Play(this)
+        tts = TTS.getInstance(this)
 
         prefs = Prefs.getInstance(this)
 
@@ -70,13 +73,17 @@ class MainActivity : AppCompatActivity() {
 
         playClass.styleButton(play, this)
 
+        tts.setVoz("es-es-x-eee-local")
+
         play.setOnClickListener {
+            tts.hablar("Empieza el juego")
             var intent = Intent(this, Game_3_3_Activity::class.java)
             startActivity(intent)
             val player1 = findViewById<Button>(R.id.player1)
             val player2 = findViewById<Button>(R.id.player2)
             player1.setBackgroundColor(colorOnPrimary)
             player2.setBackgroundColor(colorOnPrimary)
+            tts.getVoices()
         }
     }
 
@@ -146,4 +153,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        TTS.destroy()
+    }
 }

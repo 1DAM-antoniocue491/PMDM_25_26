@@ -6,21 +6,21 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.Shape
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.example.pmdm_t2_tresenraya.R
+import android.graphics.Color
+import androidx.core.graphics.toColorInt
 
-class Symbols (context: Context){
-    val play = Play(context as Activity)
+class Symbols (){
 
-    fun XSymbol(context: Context): ShapeDrawable {
-        val color = play.prefs.app.getStyle(context)
+    fun XSymbol(): ShapeDrawable {
 
         val shape = object : Shape() {
             override fun draw(canvas: Canvas, paint: Paint) {
                 val ancho = canvas.width.toFloat()
                 val alto = canvas.height.toFloat()
 
-                paint.color = color
                 paint.strokeWidth = ancho / 8
                 paint.style = Paint.Style.STROKE
                 paint.isAntiAlias = true
@@ -37,20 +37,13 @@ class Symbols (context: Context){
     /**
      * Drawable para la "O"
      */
-    fun OSymbol(context: Context): ShapeDrawable {
-        val prefs = context.getSharedPreferences("PreferenciasJuego", Context.MODE_PRIVATE)
-        val color = prefs.getInt(
-            "color_o",
-            ContextCompat.getColor(context, R.color.blue)
-        )
-
+    fun OSymbol(): ShapeDrawable {
         val shape = object : Shape() {
             override fun draw(canvas: Canvas, paint: Paint) {
                 val ancho = canvas.width.toFloat()
                 val alto = canvas.height.toFloat()
                 val radio = ancho.coerceAtMost(alto) / 2.5f
 
-                paint.color = color
                 paint.strokeWidth = ancho / 8
                 paint.style = Paint.Style.STROKE
                 paint.isAntiAlias = true
@@ -62,4 +55,6 @@ class Symbols (context: Context){
 
         return ShapeDrawable(shape)
     }
+
+
 }

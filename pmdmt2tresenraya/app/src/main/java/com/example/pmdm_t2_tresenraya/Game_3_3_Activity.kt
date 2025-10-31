@@ -71,18 +71,18 @@ class Game_3_3_Activity : AppCompatActivity() {
 
         if (prefs.app.getStart() == "player1") {
             if (isXTurn) {
-                play.setX(btn.id, juego, row, col)
+                play.setX(btn.id)
                 juego[row][col] = CellState.CROSS
             } else {
-                play.setO(btn.id, juego, row, col)
+                play.setO(btn.id)
                 juego[row][col] = CellState.CIRCLE
             }
         } else {
             if (isXTurn) {
-                play.setO(btn.id, juego, row, col)
+                play.setO(btn.id)
                 juego[row][col] = CellState.CIRCLE
             } else {
-                play.setX(btn.id, juego, row, col)
+                play.setX(btn.id)
                 juego[row][col] = CellState.CROSS
             }
         }
@@ -174,7 +174,7 @@ class Game_3_3_Activity : AppCompatActivity() {
         val btn: Button? = findViewById(btnId)
 
         btn?.let {
-            play.setO(btn.id, juego, row, col)
+            play.setO(btn.id)
             juego[row][col] = CellState.CIRCLE
         }
 
