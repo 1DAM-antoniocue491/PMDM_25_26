@@ -1,5 +1,6 @@
 package com.example.pmdm_t2_tresenraya.model
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
@@ -17,10 +18,12 @@ class Symbols (){
     fun XSymbol(): ShapeDrawable {
 
         val shape = object : Shape() {
+            @SuppressLint("ResourceAsColor")
             override fun draw(canvas: Canvas, paint: Paint) {
                 val ancho = canvas.width.toFloat()
                 val alto = canvas.height.toFloat()
 
+                paint.color = R.color.red
                 paint.strokeWidth = ancho / 8
                 paint.style = Paint.Style.STROKE
                 paint.isAntiAlias = true

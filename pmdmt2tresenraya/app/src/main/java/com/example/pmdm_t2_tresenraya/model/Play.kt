@@ -37,13 +37,15 @@ class Play (val activity: Activity) {
         val symbol = Symbols()
         val btn: Button = activity.findViewById<Button>(btn_id)
         //btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.x_3_3)
-        btn.background = symbol.XSymbol()
+        //btn.background = symbol.XSymbol()
+        btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.x_symbol)
     }
 
     fun setO(btn_id: Int) {
         val symbol = Symbols()
         val btn: Button = activity.findViewById<Button>(btn_id)
         //btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.o_3_3)
-        btn.background = symbol.OSymbol()
+        //btn.background = symbol.OSymbol()
+        btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.circle)
     }
 }
