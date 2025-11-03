@@ -1,10 +1,8 @@
 package com.example.pmdm_t2_tresenraya.model
 
-import android.app.Activity
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import androidx.compose.ui.unit.TextUnit
 import java.util.Locale
 
 class TTS private constructor(context: Context): TextToSpeech.OnInitListener {
@@ -14,6 +12,12 @@ class TTS private constructor(context: Context): TextToSpeech.OnInitListener {
 
     init {
         tts = TextToSpeech(context.applicationContext, this)
+    }
+
+    enum class Voice {
+        CHICO1,
+        CHICA1,
+        CHICA2
     }
 
     override fun onInit(status: Int) {
@@ -39,15 +43,20 @@ class TTS private constructor(context: Context): TextToSpeech.OnInitListener {
         }
     }
 
-    fun getVoices() {
-        val voces = tts?.voices
-        voces?.forEach { voice ->
-            if (voice.name.startsWith("es-es") || voice.name.startsWith("en-us"))
-            Log.d("TTS", "Voz: ${voice.name}, idioma: ${voice.locale}, gender: ${voice.features}")
+    fun getVoice(voice: TTS.Voice): String {
+        // Chica 1: tts.setVoz("es-es-x-eea-network")
+        // Chica 2: tts.setVoz("es-ES-language")
+        // Chico 1: tts.setVoz("es-es-x-eef-local")
+
+        return when (voice) {
+            Voice.CHICO1 -> "es-es-x-eef-local"
+            Voice.CHICA1 -> "es-es-x-eea-network"
+            Voice.CHICA2 -> "es-ES-language"
+            else -> "es-es-x-eef-local"
         }
     }
 
-    fun setVoz(nombreVoz: String) {
+    fun setVoz(nombreVoz: String?) {
         val voice = tts?.voices?.find { it.name.equals(nombreVoz, ignoreCase = true) }
         if (voice != null) {
             tts?.voice = voice

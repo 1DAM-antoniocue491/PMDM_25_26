@@ -1,33 +1,34 @@
 package com.example.pmdm_t2_tresenraya
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.text.LoginFilter
 import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pmdm_t2_tresenraya.R
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.TTS
 import java.util.Locale
 
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
+    private lateinit var tts: TTS
     private var color: String = ""
     val play = Play(this)
     private lateinit var defaultTheme: String
     private lateinit var defaultLanguage: String
+    private var voice: TTS.Voice? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +41,15 @@ class SettingActivity : AppCompatActivity() {
         }
 
         prefs = Prefs.getInstance(this)
+        tts = TTS.getInstance(this)
 
         Log.i("Prueba", "Si ha iniciado la app")
 
         initButtons()
         stylesButtons()
+
+        testVoices()
+        btnSetVoices()
     }
 
     fun stylesButtons(tema: String) {
@@ -172,31 +177,40 @@ class SettingActivity : AppCompatActivity() {
         val apply = findViewById<Button>(R.id.aplly)
 
         apply.setOnClickListener {
-            when (tema) {
-                "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            }
-            stylesButtons(tema)
-            AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(language))
+            try {
+                when (tema) {
+                    "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                stylesButtons(tema)
+                AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(language))
 
-            if (color != "") {
-                prefs.app.putStyle(color, this)
-            }
+                if (color != "") {
+                    prefs.app.putStyle(color, this)
+                }
 
-            var buttons: Array<Button> = arrayOf()
+                var buttons: Array<Button> = arrayOf()
 
-            if (logicTheme[0]) {
-                if (logicLanguage[0])
-                    buttons = arrayOf(default, apply, lightBtn, spain)
-                else
-                    buttons = arrayOf(default, apply, lightBtn, english)
-            } else {
-                if (logicLanguage[0])
-                    buttons = arrayOf(default, apply, darkBtn, spain)
-                else
-                    buttons = arrayOf(default, apply, darkBtn, english)
+                if (logicTheme[0]) {
+                    if (logicLanguage[0])
+                        buttons = arrayOf(default, apply, lightBtn, spain)
+                    else
+                        buttons = arrayOf(default, apply, lightBtn, english)
+                } else {
+                    if (logicLanguage[0])
+                        buttons = arrayOf(default, apply, darkBtn, spain)
+                    else
+                        buttons = arrayOf(default, apply, darkBtn, english)
+                }
+                play.styleButton(buttons, this)
+
+                voice?.let { prefs.app.putTTS(it) }
+
+                tts.hablar("Todo ha sido cambiado correctamente")
+                Toast.makeText(this, R.string.correct_apply, Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Toast.makeText(this, "A ocurrido algún problema", Toast.LENGTH_SHORT).show()
             }
-            play.styleButton(buttons, this)
 
             Log.i("Prueba", prefs.app.getStyle(this).toString())
         }
@@ -264,6 +278,48 @@ class SettingActivity : AppCompatActivity() {
                 }
                 Log.i("Prueba", "Variable color cambiada: $color")
             }
+        }
+    }
+
+    fun testVoices() {
+        val testChico2 = findViewById<ImageButton>(R.id.testChico2)
+        val testChica1 = findViewById<ImageButton>(R.id.testChica1)
+        val testChica2 = findViewById<ImageButton>(R.id.testChica2)
+
+        testChico2.setOnClickListener {
+            tts.setVoz(tts.getVoice(TTS.Voice.CHICO1))
+            tts.hablar("Empieza la jugada")
+            tts.setVoz(prefs.app.getTTS())
+        }
+
+        testChica1.setOnClickListener {
+            tts.setVoz(tts.getVoice(TTS.Voice.CHICA1))
+            tts.hablar("Empieza la jugada")
+            tts.setVoz(prefs.app.getTTS())
+        }
+
+        testChica2.setOnClickListener {
+            tts.setVoz(tts.getVoice(TTS.Voice.CHICA2))
+            tts.hablar("Empieza la jugada")
+            tts.setVoz(prefs.app.getTTS())
+        }
+    }
+
+    fun btnSetVoices() {
+        val btnChico1 = findViewById<Button>(R.id.Chico2)
+        val btnChica1 = findViewById<Button>(R.id.Chica1)
+        val btnChica2 = findViewById<Button>(R.id.Chica2)
+
+        btnChico1.setOnClickListener {
+            voice = TTS.Voice.CHICO1
+        }
+
+        btnChica1.setOnClickListener {
+            voice = TTS.Voice.CHICA1
+        }
+
+        btnChica2.setOnClickListener {
+            voice = TTS.Voice.CHICA2
         }
     }
 }

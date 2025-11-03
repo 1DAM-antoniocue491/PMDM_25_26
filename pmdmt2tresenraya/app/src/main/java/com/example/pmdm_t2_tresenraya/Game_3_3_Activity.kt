@@ -15,12 +15,14 @@ import com.example.pmdm_t2_tresenraya.model.CellState
 import com.example.pmdm_t2_tresenraya.model.IA
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.TTS
 
 class Game_3_3_Activity : AppCompatActivity() {
 
     private lateinit var juego: Array<Array<CellState>>
     private var isXTurn: Boolean = true
     private lateinit var play: Play
+    private lateinit var tts: TTS
     private lateinit var ia: IA
     private var aiEnabled: Boolean = false
     private var someOneWin: Boolean = false
@@ -38,6 +40,7 @@ class Game_3_3_Activity : AppCompatActivity() {
         }
 
         prefs = Prefs.getInstance(this)
+        tts = TTS.getInstance(this)
 
         // Inicializar objetos
         play = Play(this)
@@ -90,9 +93,9 @@ class Game_3_3_Activity : AppCompatActivity() {
         // Revisar si alguien ganó
         if (ia.checkWin(juego)) {
             someOneWin = true
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             if (prefs.app.getStart() == "player1") {
+                if (isXTurn && aiEnabled) tts.hablar("Muy bien!, le has ganado a la IA")
+                if (isXTurn && !aiEnabled) tts.hablar("El jugador 1 ha ganado")
                 Toast.makeText(this, "¡Ganó ${if (isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
                 if (prefs.app.getGameMode() != "true") {
                     if (isXTurn) {
@@ -107,6 +110,8 @@ class Game_3_3_Activity : AppCompatActivity() {
                     prefs.game.iap.putWinPlayer()
                 }
             } else {
+                if (!isXTurn) tts.hablar("El jugador 1 ha ganado")
+                else tts.hablar("El jugador 2 ha ganado")
                 Toast.makeText(this, "¡Ganó ${if (!isXTurn) "X" else "O"}!", Toast.LENGTH_SHORT).show()
                 if (prefs.app.getGameMode() != "true") {
                     if (!isXTurn) {
@@ -118,6 +123,8 @@ class Game_3_3_Activity : AppCompatActivity() {
                     }
                 }
             }
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             return
         } else {
             // Tablas
@@ -129,7 +136,7 @@ class Game_3_3_Activity : AppCompatActivity() {
                 }
             }
             if (i == 9) {
-                Log.v("Prueba", "¡Tablas!")
+                tts.hablar("Habeis quedado en tablas")
                 someOneWin = true
                 prefs.app.putGameMode("true")
                 val intent = Intent(this, MainActivity::class.java)
@@ -180,7 +187,7 @@ class Game_3_3_Activity : AppCompatActivity() {
 
         // Revisar si IA ganó
         if (ia.checkWin(juego)) {
-            Log.v("Prueba", "¡Ganó la IA!")
+            tts.hablar("OOO, La IA ha ganado!!")
             Toast.makeText(this, "¡Ganó la IA!", Toast.LENGTH_SHORT).show()
             someOneWin = true
             prefs.game.iap.putGamesPlayed()
@@ -198,7 +205,7 @@ class Game_3_3_Activity : AppCompatActivity() {
             if (i == 9) {
                 prefs.game.iap.putGamesPlayed()
                 prefs.game.iap.putDraws()
-                Log.v("Prueba", "¡Tablas!")
+                tts.hablar("Habeis quedado en tablas")
                 someOneWin = true
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

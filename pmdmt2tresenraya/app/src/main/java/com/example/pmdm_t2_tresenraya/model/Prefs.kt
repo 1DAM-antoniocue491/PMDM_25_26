@@ -25,11 +25,12 @@ class Prefs private constructor(context: Context) {
     private val appPrefs = context.getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
     private val gamePrefs = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE)
 
-    val app = AppPrefs(appPrefs)
+
+    val app = AppPrefs(appPrefs, context)
     val game = GamePrefs(gamePrefs)
 
-    class AppPrefs(private val prefs: SharedPreferences) {
-
+    class AppPrefs(private val prefs: SharedPreferences, context: Context) {
+        val tts = TTS.getInstance(context)
         fun putStart(player: String) {
             prefs.edit { putString("start", player) }
         }
@@ -142,6 +143,16 @@ class Prefs private constructor(context: Context) {
                 }
             }
             return true
+        }
+
+        fun putTTS(voice: TTS.Voice) {
+            prefs.edit() {
+                putString("tts_voice", tts.getVoice(voice))
+            }
+        }
+
+        fun getTTS(): String? {
+            return prefs.getString("tts_voice", tts.getVoice(TTS.Voice.CHICO1))
         }
     }
 

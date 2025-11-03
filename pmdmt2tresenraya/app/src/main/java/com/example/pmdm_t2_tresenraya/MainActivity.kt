@@ -3,14 +3,10 @@ package com.example.pmdm_t2_tresenraya
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -37,11 +33,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        Log.i("Prueba", "Se ha iniciado el main")
-
         playClass = Play(this)
-        tts = TTS.getInstance(this)
 
+        tts = TTS.getInstance(this)
         prefs = Prefs.getInstance(this)
 
         val settings = findViewById<ImageButton>(R.id.settings)
@@ -73,17 +67,19 @@ class MainActivity : AppCompatActivity() {
 
         playClass.styleButton(play, this)
 
-        tts.setVoz("es-es-x-eee-local")
+
 
         play.setOnClickListener {
-            tts.hablar("Empieza el juego")
+            tts.setVoz(prefs.app.getTTS())
+            tts.hablar("Empieza la partida")
+            Thread.sleep(1000)
             var intent = Intent(this, Game_3_3_Activity::class.java)
             startActivity(intent)
             val player1 = findViewById<Button>(R.id.player1)
             val player2 = findViewById<Button>(R.id.player2)
             player1.setBackgroundColor(colorOnPrimary)
             player2.setBackgroundColor(colorOnPrimary)
-            tts.getVoices()
+
         }
     }
 
