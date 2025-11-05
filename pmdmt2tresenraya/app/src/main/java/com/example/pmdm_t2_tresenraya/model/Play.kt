@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import com.google.android.material.R
 
 class Play (val activity: Activity) {
@@ -33,19 +34,13 @@ class Play (val activity: Activity) {
         button.setBackgroundColor(color)
     }
 
-    fun setX(btn_id: Int) {
-        val symbol = Symbols()
+    fun setX(btn_id: Int, context: Context) {
         val btn: Button = activity.findViewById<Button>(btn_id)
-        //btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.x_3_3)
-        //btn.background = symbol.XSymbol()
-        btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.x_symbol)
+        btn.background = ContextCompat.getDrawable(context, com.example.pmdm_t2_tresenraya.R.drawable.x_symbol)
     }
 
-    fun setO(btn_id: Int) {
-        val symbol = Symbols()
+    fun setO(btn_id: Int, context: Context) {
         val btn: Button = activity.findViewById<Button>(btn_id)
-        //btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.o_3_3)
-        //btn.background = symbol.OSymbol()
-        btn.setBackgroundResource(com.example.pmdm_t2_tresenraya.R.drawable.circle)
+        btn.background = ContextCompat.getDrawable(context, com.example.pmdm_t2_tresenraya.R.drawable.circle)
     }
 }

@@ -11,40 +11,58 @@
     android:padding="15dp">
 
     <LinearLayout
+        android:id="@+id/header_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/component_rounded1"
         android:minHeight="100dp"
         android:gravity="center"
-
         >
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:srcCompat="@drawable/x_symbol"
+                android:tint="@color/red" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/player_1"
-                android:textColor="?attr/colorPrimaryVariant"/>
+                android:textColor="?attr/colorPrimaryVariant"
+                android:textStyle="bold"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/vs"
-            android:textColor="?attr/colorPrimaryVariant"/>
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="60sp"
+            android:textStyle="bold"/>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:srcCompat="@drawable/circle"
+                android:tint="@color/blue_500" />
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/player_2"
                 android:textColor="?attr/colorPrimaryVariant"/>
@@ -58,7 +76,7 @@
         android:text="@string/connect_3_to_win"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:textColor="?attr/colorOnPrimary"/>
+        android:textColor="?attr/colorOnPrimary" />
 
     <LinearLayout
         android:layout_width="wrap_content"

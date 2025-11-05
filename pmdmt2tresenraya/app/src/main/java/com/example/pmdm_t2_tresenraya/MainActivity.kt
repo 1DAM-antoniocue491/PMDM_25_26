@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.Play
@@ -34,11 +35,16 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-
         playClass = Play(this)
 
         tts = TTS.getInstance(this)
         prefs = Prefs.getInstance(this)
+
+        if (prefs.app.isDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
         Sound.setVolume(prefs.app.getVolumeSound())
         Sound.playBackground(this, prefs.app.getBackgroundSound())

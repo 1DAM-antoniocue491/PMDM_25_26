@@ -1,15 +1,21 @@
 package com.example.pmdm_t2_tresenraya
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.*
+import com.example.pmdm_t2_tresenraya.R
 
 class Game_3_3_Activity : AppCompatActivity() {
 
@@ -21,7 +27,7 @@ class Game_3_3_Activity : AppCompatActivity() {
     private lateinit var play: Play
     private lateinit var tts: TTS
     private lateinit var prefs: Prefs
-    private var difficulty: Difficulty = Difficulty.MEDIUM
+    private var difficulty: Difficulty = Difficulty.HARD
     private var iaLara: IALara? = null
 
     @SuppressLint("MissingInflatedId")
@@ -45,6 +51,11 @@ class Game_3_3_Activity : AppCompatActivity() {
         // Configurar modo IA
         aiEnabled = prefs.app.getGameMode() == "true"
         setupButtons()
+
+        val header = findViewById<LinearLayout>(R.id.header_title)
+        if (aiEnabled) {
+            header.visibility = View.GONE
+        }
     }
 
     private fun setupButtons() {
@@ -67,10 +78,10 @@ class Game_3_3_Activity : AppCompatActivity() {
 
         // Marcar jugada del jugador
         if (isXTurn) {
-            play.setX(btn.id)
+            play.setX(btn.id, this)
             board[index] = CellState.CROSS
         } else {
-            play.setO(btn.id)
+            play.setO(btn.id, this)
             board[index] = CellState.CIRCLE
         }
 
@@ -91,16 +102,20 @@ class Game_3_3_Activity : AppCompatActivity() {
         isXTurn = !isXTurn
 
         // Turno de IA si está activada y es su turno
-        if (aiEnabled && !isXTurn) {
-            iaLara = IALara(
-                board.copyOf(),
-                playerSymbol = CellState.CROSS,
-                aiSymbol = CellState.CIRCLE,
-                isFirstMove = board.all { it == CellState.CLEAR }
-            )
+        if (!isXTurn) {
+            if (aiEnabled) {
+                iaLara = IALara(
+                    board.copyOf(),
+                    playerSymbol = CellState.CROSS,
+                    aiSymbol = CellState.CIRCLE,
+                    isFirstMove = board.all { it == CellState.CLEAR }
+                )
 
-            val aiMove = iaLara!!.getMove(difficulty)
-            if (aiMove != -1) aiTurn(aiMove)
+                val aiMove = iaLara!!.getMove(difficulty)
+                if (aiMove != -1) aiTurn(aiMove)
+            } else if (!aiEnabled) {
+                play.setO(btn.id, this)
+            }
         }
     }
 
@@ -112,7 +127,7 @@ class Game_3_3_Activity : AppCompatActivity() {
         val btn: Button? = findViewById(btnId)
 
         btn?.let {
-            play.setO(btn.id)
+            play.setO(btn.id, this)
             board[aiMove] = CellState.CIRCLE
         }
 
