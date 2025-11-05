@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.Sound
 import com.example.pmdm_t2_tresenraya.model.TTS
 
 class MainActivity : AppCompatActivity() {
@@ -33,10 +34,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+
         playClass = Play(this)
 
         tts = TTS.getInstance(this)
         prefs = Prefs.getInstance(this)
+
+        Sound.setVolume(prefs.app.getVolumeSound())
+        Sound.playBackground(this, prefs.app.getBackgroundSound())
 
         val settings = findViewById<ImageButton>(R.id.settings)
         settings.setOnClickListener {
@@ -47,6 +52,12 @@ class MainActivity : AppCompatActivity() {
         val statistics = findViewById<ImageButton>(R.id.statistics)
         statistics.setOnClickListener {
             val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val levels = findViewById<ImageButton>(R.id.levels)
+        levels.setOnClickListener {
+            val intent = Intent(this, LevelsActivity::class.java)
             startActivity(intent)
         }
 
@@ -66,8 +77,6 @@ class MainActivity : AppCompatActivity() {
         val play = findViewById<Button>(R.id.play)
 
         playClass.styleButton(play, this)
-
-
 
         play.setOnClickListener {
             tts.setVoz(prefs.app.getTTS())
@@ -152,5 +161,14 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         TTS.destroy()
+        Sound.stopBackground()
+    }
+
+    override fun onPause() {
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

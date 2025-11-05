@@ -4,15 +4,18 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.TTS
 
 class StatisticsActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
+    private val tts: TTS = TTS.getInstance(this)
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +40,9 @@ class StatisticsActivity : AppCompatActivity() {
         restart.setOnClickListener {
             prefs.game.pvp.restartAll()
             prefs.game.iap.restartAll()
+            prefs.app.restartLevels()
             updateValues()
+            tts.hablar("Los niveles y las estadísticas se han reiniciado correctamente")
         }
     }
 

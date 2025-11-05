@@ -154,6 +154,46 @@ class Prefs private constructor(context: Context) {
         fun getTTS(): String? {
             return prefs.getString("tts_voice", tts.getVoice(TTS.Voice.CHICO1))
         }
+
+        fun addLevel(level: String) {
+            prefs.edit() {
+                var levels = getLevels()?.toMutableSet()
+                levels?.add(level)
+                prefs.edit {
+                    putStringSet("levels", levels)
+                }
+            }
+        }
+
+        fun getLevels(): Set<String?>? {
+            return prefs.getStringSet("levels", setOf())
+        }
+
+        fun restartLevels() {
+            prefs.edit {
+                putStringSet("levels", setOf())
+            }
+        }
+
+        fun putBackgroundSound(sound: Int) {
+            prefs.edit {
+                putInt("backgroundSound", sound)
+            }
+        }
+
+        fun getBackgroundSound(): Int {
+            return prefs.getInt("backgroundSound", R.raw.lofi)
+        }
+
+        fun putVolumeSound(volume: Int) {
+            prefs.edit{
+                putInt("volumeSound", volume)
+            }
+        }
+
+        fun getVolumeSound(): Int {
+            return prefs.getInt("volumeSound", 100)
+        }
     }
 
     class GamePrefs(private val prefs: SharedPreferences) {

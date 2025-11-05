@@ -1,5 +1,6 @@
 package com.example.pmdm_t2_tresenraya
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
@@ -8,6 +9,8 @@ import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.SeekBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +20,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.model.Play
 import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.Sound
 import com.example.pmdm_t2_tresenraya.model.TTS
 import java.util.Locale
-
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -29,6 +32,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var defaultTheme: String
     private lateinit var defaultLanguage: String
     private var voice: TTS.Voice? = null
+    private lateinit var seekBar: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,8 @@ class SettingActivity : AppCompatActivity() {
         prefs = Prefs.getInstance(this)
         tts = TTS.getInstance(this)
 
+        seekBar = findViewById<SeekBar>(R.id.seekBar2)
+
         Log.i("Prueba", "Si ha iniciado la app")
 
         initButtons()
@@ -50,6 +56,8 @@ class SettingActivity : AppCompatActivity() {
 
         testVoices()
         btnSetVoices()
+
+        initModifierSound()
     }
 
     fun stylesButtons(tema: String) {
@@ -206,11 +214,15 @@ class SettingActivity : AppCompatActivity() {
 
                 voice?.let { prefs.app.putTTS(it) }
 
+                seekBar.thumb.setTint(prefs.app.getStyle(this))
+
                 tts.hablar("Todo ha sido cambiado correctamente")
                 Toast.makeText(this, R.string.correct_apply, Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(this, "A ocurrido algún problema", Toast.LENGTH_SHORT).show()
             }
+
+            Sound.playBackground(this, prefs.app.getBackgroundSound())
 
             Log.i("Prueba", prefs.app.getStyle(this).toString())
         }
@@ -321,5 +333,65 @@ class SettingActivity : AppCompatActivity() {
         btnChica2.setOnClickListener {
             voice = TTS.Voice.CHICA2
         }
+    }
+
+    @SuppressLint("WrongViewCast")
+    fun initModifierSound() {
+        val soundValue = findViewById<TextView>(R.id.soundValue)
+
+        // Inicializar volumen
+        seekBar.progress = prefs.app.getVolumeSound()
+        seekBar.thumb.setTint(prefs.app.getStyle(this))
+        Sound.setVolume(prefs.app.getVolumeSound())
+        soundValue.text = prefs.app.getVolumeSound().toString()
+
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(sb: SeekBar?, progress: Int, fromUser: Boolean) {
+                soundValue.text = progress.toString()
+                Sound.setVolume(progress)
+                prefs.app.putVolumeSound(progress)
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {}
+            override fun onStopTrackingTouch(p0: SeekBar?) {}
+        })
+        findViewById<ImageButton>(R.id.testSound1).setOnClickListener {
+            Sound.playPreview(this, R.raw.guitars_loops)
+        }
+
+        findViewById<ImageButton>(R.id.testSound2).setOnClickListener {
+            Sound.playPreview(this, R.raw.lofi)
+        }
+
+        findViewById<ImageButton>(R.id.testSound3).setOnClickListener {
+            Sound.playPreview(this, R.raw.sound4)
+        }
+
+        findViewById<ImageButton>(R.id.testSound4).setOnClickListener {
+            Sound.playPreview(this, R.raw.sound_game_loops)
+        }
+
+        findViewById<Button>(R.id.playSound1).setOnClickListener {
+            Sound.playBackground(this, R.raw.guitars_loops)
+        }
+        findViewById<Button>(R.id.playSound2).setOnClickListener {
+            Sound.playBackground(this, R.raw.lofi)
+        }
+        findViewById<Button>(R.id.playSound3).setOnClickListener {
+            Sound.playBackground(this, R.raw.sound4)
+        }
+        findViewById<Button>(R.id.playSound4).setOnClickListener {
+            Sound.playBackground(this, R.raw.sound_game_loops)
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Sound.pauseBackground()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Sound.resumeBackground()
     }
 }

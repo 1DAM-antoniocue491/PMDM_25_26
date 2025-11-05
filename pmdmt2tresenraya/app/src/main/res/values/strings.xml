@@ -42,4 +42,5 @@
     <string name="m_sica_2">Música 2</string>
     <string name="m_sica_1">Música 1</string>
     <string name="correct_apply">Todo se ha guardado correctamente</string>
+    <string name="niveles">Niveles</string>
 </resources>

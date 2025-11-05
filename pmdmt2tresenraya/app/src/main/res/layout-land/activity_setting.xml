@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingActivity"
+    android:orientation="vertical"
+    android:background="?attr/colorPrimary"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/colorPrimary"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/back"
+            app:tint="?attr/colorPrimaryVariant"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimaryVariant"
+            android:textSize="40sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:paddingBottom="0dp"
+                    android:paddingTop="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/theme"
+                        android:textColor="?attr/colorSecondaryVariant"
+                        android:textStyle="bold"
+                        android:layout_marginStart="7sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        >
+
+                        <Button
+                            android:id="@+id/light"
+                            android:layout_width="165dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:text="@string/light"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            />
+
+                        <Button
+                            android:id="@+id/dark"
+                            android:layout_width="165dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:text="@string/dark"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="28dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language"
+                        android:textColor="?attr/colorSecondaryVariant"
+                        android:textStyle="bold"
+                        android:layout_marginStart="7sp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        >
+
+                        <Button
+                            android:id="@+id/spanish"
+                            android:layout_width="165dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:text="@string/spanish"
+                            android:layout_marginEnd="16dp"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            />
+
+                        <Button
+                            android:id="@+id/english"
+                            android:layout_width="165dp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="?attr/colorOnPrimary"
+                            android:text="@string/english"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/estilo"
+                    android:textColor="?attr/colorSecondaryVariant"
+                    android:textStyle="bold"
+                    android:layout_marginStart="7sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/red"
+                        android:layout_width="90dp"
+                        android:layout_height="100dp"
+                        app:cornerRadius="70dp"
+                        android:backgroundTint="@color/black"/>
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/yellow"
+                        android:layout_width="90dp"
+                        android:layout_height="100dp"
+                        app:cornerRadius="70dp"
+                        android:backgroundTint="@color/black"/>
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/green"
+                        android:layout_width="90dp"
+                        android:layout_height="100dp"
+                        app:cornerRadius="70dp"
+                        android:backgroundTint="@color/black"/>
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/cian"
+                        android:layout_width="90dp"
+                        android:layout_height="100dp"
+                        app:cornerRadius="70dp"
+                        android:backgroundTint="@color/black"/>
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/blue"
+                        android:layout_width="90dp"
+                        android:layout_height="100dp"
+                        app:cornerRadius="70dp"
+                        android:backgroundTint="@color/black"/>
+
+                    <View
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pink"
+                        android:layout_width="90dp"
+                        android:layout_height="100dp"
+                        app:cornerRadius="70dp"
+                        android:backgroundTint="@color/black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/voz"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            android:textStyle="bold"
+                            android:layout_marginStart="7sp"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testChico2"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/chico_1"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/Chico2"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testChica1"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/chica_1"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/Chica1"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testChica2"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/chica_2"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/Chica2"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+                        </LinearLayout>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="90dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="57dp"
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sonido"
+                            android:textColor="?attr/colorSecondaryVariant"
+                            android:textStyle="bold"
+                            android:layout_marginStart="7sp"/>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"
+                            android:layout_marginVertical="10dp"
+                            >
+
+                            <SeekBar
+                                android:id="@+id/seekBar2"
+                                android:layout_width="340dp"
+                                android:layout_height="wrap_content"
+                                android:max="100"
+                                android:progress="100"
+                                />
+
+                            <TextView
+                                android:id="@+id/soundValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testSound1"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/m_sica_1"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/playSound1"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                tools:ignore="SmallSp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testSound2"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/m_sica_2"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/playSound2"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                tools:ignore="SmallSp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testSound3"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/m_sica_3"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/playSound3"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                tools:ignore="SmallSp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            >
+
+                            <ImageButton
+                                android:id="@+id/testSound4"
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/component_rounded1"
+                                android:scaleType="centerInside"
+                                app:srcCompat="@drawable/sound"
+                                app:tint="?attr/colorPrimaryVariant" />
+
+                            <TextView
+                                android:layout_width="133dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/m_sica_4"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                            <Button
+                                android:id="@+id/playSound4"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/seleccionar"
+                                android:textSize="8sp"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/defaultSettings"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/restart_to_default"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:backgroundTint="?attr/colorSecondary"
+            android:drawableTop="@drawable/component_rounded1"
+            android:gravity="center"
+            android:layout_marginEnd="45dp"
+            />
+
+        <Button
+            android:id="@+id/aplly"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="@string/aplly"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:backgroundTint="?attr/colorSecondary"
+            android:drawableTop="@drawable/component_rounded1"
+            android:gravity="center"
+            android:layout_marginStart="45dp"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>
