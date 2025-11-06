@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.model
+package com.example.pmdm_t2_tresenraya.controller
 
 import android.app.Activity
 import android.content.Context

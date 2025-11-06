@@ -1,12 +1,13 @@
-package com.example.pmdm_t2_tresenraya
+package com.example.pmdm_t2_tresenraya.view
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +15,13 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pmdm_t2_tresenraya.model.*
 import com.example.pmdm_t2_tresenraya.R
+import com.example.pmdm_t2_tresenraya.controller.CellState
+import com.example.pmdm_t2_tresenraya.controller.Difficulty
+import com.example.pmdm_t2_tresenraya.controller.IA
+import com.example.pmdm_t2_tresenraya.controller.Play
+import com.example.pmdm_t2_tresenraya.controller.Prefs
+import com.example.pmdm_t2_tresenraya.controller.TTS
 
 class Game_3_3_Activity : AppCompatActivity() {
 
@@ -28,7 +34,7 @@ class Game_3_3_Activity : AppCompatActivity() {
     private lateinit var tts: TTS
     private lateinit var prefs: Prefs
     private var difficulty: Difficulty = Difficulty.HARD
-    private var iaLara: IALara? = null
+    private var iaLara: IA? = null
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,10 +58,9 @@ class Game_3_3_Activity : AppCompatActivity() {
         aiEnabled = prefs.app.getGameMode() == "true"
         setupButtons()
 
-        val header = findViewById<LinearLayout>(R.id.header_title)
-        if (aiEnabled) {
-            header.visibility = View.GONE
-        }
+        isXTurn = prefs.app.getStart()
+
+        headerConfiguration()
     }
 
     private fun setupButtons() {
@@ -80,9 +85,11 @@ class Game_3_3_Activity : AppCompatActivity() {
         if (isXTurn) {
             play.setX(btn.id, this)
             board[index] = CellState.CROSS
+            headerConfiguration(CellState.CIRCLE)
         } else {
             play.setO(btn.id, this)
             board[index] = CellState.CIRCLE
+            headerConfiguration(CellState.CROSS)
         }
 
         // Revisar victoria
@@ -102,20 +109,16 @@ class Game_3_3_Activity : AppCompatActivity() {
         isXTurn = !isXTurn
 
         // Turno de IA si está activada y es su turno
-        if (!isXTurn) {
-            if (aiEnabled) {
-                iaLara = IALara(
-                    board.copyOf(),
-                    playerSymbol = CellState.CROSS,
-                    aiSymbol = CellState.CIRCLE,
-                    isFirstMove = board.all { it == CellState.CLEAR }
-                )
+        if (!isXTurn && aiEnabled) {
+            iaLara = IA(
+                board.copyOf(),
+                playerSymbol = CellState.CROSS,
+                aiSymbol = CellState.CIRCLE,
+                isFirstMove = board.all { it == CellState.CLEAR }
+            )
 
-                val aiMove = iaLara!!.getMove(difficulty)
-                if (aiMove != -1) aiTurn(aiMove)
-            } else if (!aiEnabled) {
-                play.setO(btn.id, this)
-            }
+            val aiMove = iaLara!!.getMove(difficulty)
+            if (aiMove != -1) aiTurn(aiMove)
         }
     }
 
@@ -173,11 +176,23 @@ class Game_3_3_Activity : AppCompatActivity() {
             else -> "Gana el jugador 2"
         }
 
-        tts.hablar(message)
+        tts.hablar(message, prefs.app.getLanguage())
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-        // Guardar estadísticas (simplificado)
-        prefs.game.pvp.putGamesPlayed()
+
+        if (winner == CellState.CROSS && aiEnabled) {
+            prefs.game.pvp.putGamesPlayed()
+            prefs.game.iap.putWinPlayer()
+        } else if (winner == CellState.CIRCLE && aiEnabled) {
+            prefs.game.iap.putGamesPlayed()
+            prefs.game.iap.putWinIA()
+        } else if (winner == CellState.CROSS && !aiEnabled) {
+            prefs.game.pvp.putGamesPlayed()
+            prefs.game.pvp.putWinPlayer1()
+        } else if (winner == CellState.CIRCLE && !aiEnabled) {
+            prefs.game.pvp.putGamesPlayed()
+            prefs.game.pvp.putWinPlayer2()
+        }
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -185,13 +200,40 @@ class Game_3_3_Activity : AppCompatActivity() {
 
     private fun onDraw() {
         someoneWon = true
-        tts.hablar("Habéis quedado en tablas")
+        tts.hablar("Habéis quedado en tablas", prefs.app.getLanguage())
         Toast.makeText(this, "¡Tablas!", Toast.LENGTH_SHORT).show()
 
-        prefs.game.pvp.putGamesPlayed()
-        prefs.game.pvp.putDraws()
+        if (aiEnabled) {
+            prefs.game.iap.putGamesPlayed()
+            prefs.game.iap.putDraws()
+        } else {
+            prefs.game.pvp.putGamesPlayed()
+            prefs.game.pvp.putDraws()
+        }
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun headerConfiguration(player: CellState = CellState.CROSS) {
+        val header = findViewById<LinearLayout>(R.id.header_title)
+        val cross = findViewById<AppCompatImageView>(R.id.cross)
+        val circle = findViewById<AppCompatImageView>(R.id.circle)
+        val player1 = findViewById<TextView>(R.id.player1)
+        val player2 = findViewById<TextView>(R.id.player2)
+
+        if (aiEnabled) {
+            header.visibility = View.GONE
+        }
+
+        if (player == CellState.CROSS) {
+            cross.imageTintList = ContextCompat.getColorStateList(this, R.color.red)
+            player1.setTypeface(null, Typeface.BOLD)
+            circle.imageTintList = ContextCompat.getColorStateList(this, R.color.blue_500)
+        } else {
+            cross.imageTintList = ContextCompat.getColorStateList(this, R.color.red_500)
+            player2.setTypeface(null, Typeface.BOLD)
+            circle.imageTintList = ContextCompat.getColorStateList(this, R.color.blue)
+        }
     }
 }

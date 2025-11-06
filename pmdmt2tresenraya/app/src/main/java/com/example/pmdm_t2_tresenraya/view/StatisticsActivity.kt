@@ -1,17 +1,17 @@
-package com.example.pmdm_t2_tresenraya
+package com.example.pmdm_t2_tresenraya.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pmdm_t2_tresenraya.model.Play
-import com.example.pmdm_t2_tresenraya.model.Prefs
-import com.example.pmdm_t2_tresenraya.model.TTS
+import com.example.pmdm_t2_tresenraya.R
+import com.example.pmdm_t2_tresenraya.controller.Play
+import com.example.pmdm_t2_tresenraya.controller.Prefs
+import com.example.pmdm_t2_tresenraya.controller.TTS
 
 class StatisticsActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -42,7 +42,7 @@ class StatisticsActivity : AppCompatActivity() {
             prefs.game.iap.restartAll()
             prefs.app.restartLevels()
             updateValues()
-            tts.hablar("Los niveles y las estadísticas se han reiniciado correctamente")
+            tts.hablar("Los niveles y las estadísticas se han reiniciado correctamente", prefs.app.getLanguage())
         }
     }
 

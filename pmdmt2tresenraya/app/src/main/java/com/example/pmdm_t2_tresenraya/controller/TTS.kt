@@ -1,6 +1,7 @@
-package com.example.pmdm_t2_tresenraya.model
+package com.example.pmdm_t2_tresenraya.controller
 
 import android.content.Context
+import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import java.util.Locale
@@ -9,9 +10,11 @@ class TTS private constructor(context: Context): TextToSpeech.OnInitListener {
 
     private var tts: TextToSpeech? = null
     private var inicializado = false
+    private var language: String
 
     init {
         tts = TextToSpeech(context.applicationContext, this)
+        language = Locale.getDefault().language
     }
 
     enum class Voice {
@@ -35,7 +38,20 @@ class TTS private constructor(context: Context): TextToSpeech.OnInitListener {
         }
     }
 
-    fun hablar(text: String) {
+
+    fun hablar(text: String, language: String) {
+        this.language = language
+
+        when (language) {
+            "es" -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    this.tts?.language = Locale.of(language.uppercase(), language)
+                } else {
+                    this.tts?.language = Locale(language, language.uppercase())
+                }
+            }
+            "en" -> this.tts?.language = Locale.US
+        }
         if (inicializado) {
             tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "TTS_ID")
         } else {
@@ -43,17 +59,39 @@ class TTS private constructor(context: Context): TextToSpeech.OnInitListener {
         }
     }
 
-    fun getVoice(voice: TTS.Voice): String {
+    fun getVoice(voice: Voice): String {
+        // Español
+        // Chico 1: tts.setVoz("es-es-x-eef-local")
         // Chica 1: tts.setVoz("es-es-x-eea-network")
         // Chica 2: tts.setVoz("es-ES-language")
-        // Chico 1: tts.setVoz("es-es-x-eef-local")
 
-        return when (voice) {
-            Voice.CHICO1 -> "es-es-x-eef-local"
-            Voice.CHICA1 -> "es-es-x-eea-network"
-            Voice.CHICA2 -> "es-ES-language"
-            else -> "es-es-x-eef-local"
+        // Ingles
+        // Voz 1: en-us-x-tpf-local
+        // Voz 2: en-us-x-sfg-local
+        // Voz 3: en-us-x-iob-local
+
+        Log.i("Prueba", language)
+
+        return when (language) {
+            "es" -> {
+                when (voice) {
+                    Voice.CHICO1 -> "es-es-x-eef-local"
+                    Voice.CHICA1 -> "es-es-x-eea-network"
+                    Voice.CHICA2 -> "es-es-x-eed-local"
+                    else -> "es-es-x-eef-local"
+                }
+            }
+            "en" -> {
+                when (voice) {
+                    Voice.CHICO1 -> "en-gb-x-rjs-local"
+                    Voice.CHICA1 -> "en-us-x-sfg-network"
+                    Voice.CHICA2 -> "en-gb-x-gba-local"
+                    else -> "en-us-x-sfg-local"
+                }
+            }
+            else -> "es-es-x-eef-local" // idioma por defecto
         }
+
     }
 
     fun setVoz(nombreVoz: String?) {

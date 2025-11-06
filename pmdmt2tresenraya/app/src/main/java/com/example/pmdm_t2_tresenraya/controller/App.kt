@@ -1,10 +1,9 @@
-package com.example.pmdm_t2_tresenraya.appController
+package com.example.pmdm_t2_tresenraya.controller
 
 import android.app.Application
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.example.pmdm_t2_tresenraya.model.Sound
 
 class App : Application(), DefaultLifecycleObserver {
 

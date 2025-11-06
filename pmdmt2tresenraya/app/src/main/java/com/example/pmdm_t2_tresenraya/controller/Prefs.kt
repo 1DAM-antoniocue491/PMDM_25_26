@@ -1,14 +1,13 @@
-package com.example.pmdm_t2_tresenraya.model
+package com.example.pmdm_t2_tresenraya.controller
 
-import android.R.attr.theme
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.util.Log
-import android.util.TypedValue
 import androidx.core.content.edit
 import androidx.core.content.ContextCompat
 import com.example.pmdm_t2_tresenraya.R
+import java.util.Locale
 
 class Prefs private constructor(context: Context) {
     companion object {
@@ -31,11 +30,11 @@ class Prefs private constructor(context: Context) {
 
     class AppPrefs(private val prefs: SharedPreferences, context: Context) {
         val tts = TTS.getInstance(context)
-        fun putStart(player: String) {
-            prefs.edit { putString("start", player) }
+        fun putStart(player: Boolean) {
+            prefs.edit { putBoolean("start", player) }
         }
-        fun getStart(): String {
-            return prefs.getString("start", "player1") ?: "player1"
+        fun getStart(): Boolean {
+            return prefs.getBoolean("start", true)
         }
 
         fun putGameMode(mode: String) {
@@ -63,7 +62,9 @@ class Prefs private constructor(context: Context) {
             prefs.edit { putString("language", language) }
         }
         fun getLanguage(): String {
-            return prefs.getString("language", "es") ?: "es"
+            val language = Locale.getDefault().language
+
+            return prefs.getString("language", language) ?: language
         }
 
         fun putStyle(color: String, context: Context, defaultColor: Boolean = false) {
@@ -132,7 +133,7 @@ class Prefs private constructor(context: Context) {
             }
         }
 
-        private fun getTheme(context: Context): Boolean {
+        fun getTheme(context: Context): Boolean {
             val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
             when (nightModeFlags) {
                 Configuration.UI_MODE_NIGHT_YES -> {

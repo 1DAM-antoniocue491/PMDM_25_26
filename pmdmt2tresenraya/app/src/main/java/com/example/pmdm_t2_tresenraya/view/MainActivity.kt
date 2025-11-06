@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya
+package com.example.pmdm_t2_tresenraya.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -11,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pmdm_t2_tresenraya.model.Play
-import com.example.pmdm_t2_tresenraya.model.Prefs
-import com.example.pmdm_t2_tresenraya.model.Sound
-import com.example.pmdm_t2_tresenraya.model.TTS
+import com.example.pmdm_t2_tresenraya.R
+import com.example.pmdm_t2_tresenraya.controller.Play
+import com.example.pmdm_t2_tresenraya.controller.Prefs
+import com.example.pmdm_t2_tresenraya.controller.Sound
+import com.example.pmdm_t2_tresenraya.controller.TTS
 
 class MainActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -49,23 +50,7 @@ class MainActivity : AppCompatActivity() {
         Sound.setVolume(prefs.app.getVolumeSound())
         Sound.playBackground(this, prefs.app.getBackgroundSound())
 
-        val settings = findViewById<ImageButton>(R.id.settings)
-        settings.setOnClickListener {
-            val intent = Intent(this, SettingActivity::class.java)
-            startActivity(intent)
-        }
 
-        val statistics = findViewById<ImageButton>(R.id.statistics)
-        statistics.setOnClickListener {
-            val intent = Intent(this, StatisticsActivity::class.java)
-            startActivity(intent)
-        }
-
-        val levels = findViewById<ImageButton>(R.id.levels)
-        levels.setOnClickListener {
-            val intent = Intent(this, LevelsActivity::class.java)
-            startActivity(intent)
-        }
 
         val typedValueSecondary = TypedValue()
         val typeValueOnPrimary = TypedValue()
@@ -80,13 +65,13 @@ class MainActivity : AppCompatActivity() {
 
         contrincante()
 
+        navigationIcons()
+
         val play = findViewById<Button>(R.id.play)
-
         playClass.styleButton(play, this)
-
         play.setOnClickListener {
             tts.setVoz(prefs.app.getTTS())
-            tts.hablar("Empieza la partida")
+            tts.hablar("Empieza la partida", prefs.app.getLanguage())
             Thread.sleep(1000)
             var intent = Intent(this, Game_3_3_Activity::class.java)
             startActivity(intent)
@@ -116,7 +101,7 @@ class MainActivity : AppCompatActivity() {
 
         if (prefs.app.getGameMode() == "false") {
             playClass.styleButton(player1, this)
-            prefs.app.putStart("player1")
+            prefs.app.putStart(true)
         } else {
             player1.setBackgroundColor(colorOnPrimary)
             player2.setBackgroundColor(colorOnPrimary)
@@ -125,14 +110,14 @@ class MainActivity : AppCompatActivity() {
         player1.setOnClickListener {
             if (prefs.app.getGameMode() == "false") {
                 setButton(player1, players)
-                prefs.app.putStart("player1")
+                prefs.app.putStart(true)
             }
         }
 
         player2.setOnClickListener {
             if (prefs.app.getGameMode() == "false") {
                 setButton(player2, players)
-                prefs.app.putStart("player2")
+                prefs.app.putStart(false)
             }
         }
     }
@@ -176,5 +161,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+    }
+
+    fun navigationIcons() {
+        val settings = findViewById<ImageButton>(R.id.settings)
+        settings.setOnClickListener {
+            val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
+
+        val statistics = findViewById<ImageButton>(R.id.statistics)
+        statistics.setOnClickListener {
+            val intent = Intent(this, StatisticsActivity::class.java)
+            startActivity(intent)
+        }
+
+        val levels = findViewById<ImageButton>(R.id.levels)
+        levels.setOnClickListener {
+            val intent = Intent(this, LevelsActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

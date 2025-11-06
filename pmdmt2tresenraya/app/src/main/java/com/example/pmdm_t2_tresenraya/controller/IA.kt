@@ -1,8 +1,8 @@
-package com.example.pmdm_t2_tresenraya.model
+package com.example.pmdm_t2_tresenraya.controller
 
 enum class Difficulty { EASY, MEDIUM, HARD, VOID }
 
-class IALara(
+class IA(
     private val board: Array<CellState>,
     private val playerSymbol: CellState,
     private val aiSymbol: CellState,

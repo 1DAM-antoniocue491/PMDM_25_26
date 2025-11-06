@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya
+package com.example.pmdm_t2_tresenraya.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,12 +16,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.pmdm_t2_tresenraya.model.Play
-import com.example.pmdm_t2_tresenraya.model.Prefs
-import com.example.pmdm_t2_tresenraya.model.Sound
-import com.example.pmdm_t2_tresenraya.model.TTS
+import com.example.pmdm_t2_tresenraya.R
+import com.example.pmdm_t2_tresenraya.controller.Play
+import com.example.pmdm_t2_tresenraya.controller.Prefs
+import com.example.pmdm_t2_tresenraya.controller.Sound
+import com.example.pmdm_t2_tresenraya.controller.TTS
 import java.util.Locale
 
 class SettingActivity : AppCompatActivity() {
@@ -197,7 +199,9 @@ class SettingActivity : AppCompatActivity() {
                     }
                 }
                 stylesButtons(tema)
-                AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(language))
+
+                prefs.app.putLanguage(language)
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language))
 
                 if (color != "") {
                     prefs.app.putStyle(color, this)
@@ -222,7 +226,7 @@ class SettingActivity : AppCompatActivity() {
 
                 seekBar.thumb.setTint(prefs.app.getStyle(this))
 
-                tts.hablar("Todo ha sido cambiado correctamente")
+                tts.hablar("Todo ha sido cambiado correctamente", prefs.app.getLanguage())
                 Toast.makeText(this, R.string.correct_apply, Toast.LENGTH_SHORT).show()
             } catch (e: Exception) {
                 Toast.makeText(this, "A ocurrido algún problema", Toast.LENGTH_SHORT).show()
@@ -263,7 +267,7 @@ class SettingActivity : AppCompatActivity() {
             }
 
             Log.i("Prueba", defaultLanguage)
-            AppCompatDelegate.setApplicationLocales(androidx.core.os.LocaleListCompat.forLanguageTags(defaultLanguage))
+            AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(defaultLanguage))
 
             prefs.app.putStyle(color, this, true)
             var buttons = arrayOf(default, apply)
@@ -306,19 +310,19 @@ class SettingActivity : AppCompatActivity() {
 
         testChico2.setOnClickListener {
             tts.setVoz(tts.getVoice(TTS.Voice.CHICO1))
-            tts.hablar("Empieza la jugada")
+            tts.hablar("Empieza la jugada", prefs.app.getLanguage())
             tts.setVoz(prefs.app.getTTS())
         }
 
         testChica1.setOnClickListener {
             tts.setVoz(tts.getVoice(TTS.Voice.CHICA1))
-            tts.hablar("Empieza la jugada")
+            tts.hablar("Empieza la jugada", prefs.app.getLanguage())
             tts.setVoz(prefs.app.getTTS())
         }
 
         testChica2.setOnClickListener {
             tts.setVoz(tts.getVoice(TTS.Voice.CHICA2))
-            tts.hablar("Empieza la jugada")
+            tts.hablar("Empieza la jugada", prefs.app.getLanguage())
             tts.setVoz(prefs.app.getTTS())
         }
     }
