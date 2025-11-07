@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.Game_3_3_Activity"
+    tools:context=".controller.Game_3_3_Activity"
     android:orientation="vertical"
     android:background="?attr/colorPrimary"
     android:padding="15dp">
@@ -60,7 +60,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:srcCompat="@drawable/circle"
-                android:tint="@color/blue_500" />
+                android:tint="@color/blue" />
 
             <TextView
                 android:id="@+id/player2"

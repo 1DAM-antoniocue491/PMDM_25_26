@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.view
+package com.example.pmdm_t2_tresenraya.controller
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.R
-import com.example.pmdm_t2_tresenraya.controller.Play
-import com.example.pmdm_t2_tresenraya.controller.Prefs
-import com.example.pmdm_t2_tresenraya.controller.TTS
+import com.example.pmdm_t2_tresenraya.model.Play
+import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.TTS
 
 class StatisticsActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -37,13 +37,7 @@ class StatisticsActivity : AppCompatActivity() {
 
         play.styleButton(restart,this)
 
-        restart.setOnClickListener {
-            prefs.game.pvp.restartAll()
-            prefs.game.iap.restartAll()
-            prefs.app.restartLevels()
-            updateValues()
-            tts.hablar("Los niveles y las estadísticas se han reiniciado correctamente", prefs.app.getLanguage())
-        }
+        restart.setOnClickListener { restartAll() }
     }
 
     fun updateValues() {
@@ -56,5 +50,13 @@ class StatisticsActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.win1_IAP).text = prefs.game.iap.getWinPlayer().toString()
         findViewById<TextView>(R.id.win2_IAP).text = prefs.game.iap.getWinIA().toString()
         findViewById<TextView>(R.id.draws_IAP).text = prefs.game.iap.getDraws().toString()
+    }
+
+    fun restartAll() {
+        prefs.game.pvp.restartAll()
+        prefs.game.iap.restartAll()
+        prefs.app.restartLevels()
+        updateValues()
+        tts.hablar("Los niveles y las estadísticas se han reiniciado correctamente", prefs.app.getLanguage())
     }
 }

@@ -6,260 +6,274 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.MainActivity"
+    tools:context=".controller.MainActivity"
     android:background="?attr/colorPrimary"
     android:padding="15dp">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/settings"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/settings"
-            android:background="?attr/colorPrimary"
-            app:tint="?attr/colorPrimaryVariant" />
-
-        <View
-            android:layout_width="400dp"
-            android:layout_height="match_parent"/>
-
-        <ImageButton
-            android:id="@+id/levels"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/levels"
-            android:background="?attr/colorPrimary"
-            app:tint="?attr/colorPrimaryVariant"/>
-
-        <ImageButton
-            android:id="@+id/statistics"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/statistics"
-            android:background="?attr/colorPrimary"
-            app:tint="?attr/colorPrimaryVariant"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center">
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="50dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/component_rounded1"
-                android:padding="20dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="30dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="15sp"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/board_size"
-                        app:tint="?attr/colorSecondaryVariant" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/modo_de_juego"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        android:textStyle="bold"
-                        android:layout_marginStart="7sp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-
-                    >
-
-                    <Button
-                        android:id="@+id/computer"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorOnPrimary"
-                        android:text="Computer"
-                        android:layout_marginRight="5dp"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        />
-
-                    <Button
-                        android:id="@+id/person"
-                        android:layout_width="155dp"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorOnPrimary"
-                        android:text="Person"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@drawable/component_rounded1"
-                android:padding="20dp"
-                android:layout_gravity="center"
-                >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="18dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="15sp"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/board_size"
-                        app:tint="?attr/colorSecondaryVariant" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/jugador_inicial"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        android:textStyle="bold"
-                        android:layout_marginStart="7sp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-
-                    >
-
-                    <Button
-                        android:id="@+id/player1"
-                        android:layout_width="155dp"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorOnPrimary"
-                        android:text="@string/player_1"
-                        android:layout_marginEnd="5dp"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        />
-
-                    <Button
-                        android:id="@+id/player2"
-                        android:layout_width="155dp"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="?attr/colorOnPrimary"
-                        android:text="@string/player_2"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:textColor="?attr/colorSecondaryVariant"
-                        />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="50dp">
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/tic_tac_toe"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textSize="40sp"
-                android:textColor="?attr/colorPrimaryVariant" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="79dp"
-                android:layout_gravity="center"
-                android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="70sp"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/x_symbol"
-                    app:tint="@color/red" />
+                <ImageButton
+                    android:id="@+id/settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/settings"
+                    android:background="?attr/colorPrimary"
+                    app:tint="?attr/colorPrimaryVariant" />
 
-                <ImageView
-                    android:layout_width="70sp"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/circle"
-                    app:tint="@color/blue" />
+                <View
+                    android:layout_width="400dp"
+                    android:layout_height="match_parent"/>
 
+                <ImageButton
+                    android:id="@+id/levels"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/levels"
+                    android:background="?attr/colorPrimary"
+                    app:tint="?attr/colorPrimaryVariant"/>
+
+                <ImageButton
+                    android:id="@+id/statistics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/statistics"
+                    android:background="?attr/colorPrimary"
+                    app:tint="?attr/colorPrimaryVariant"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/play"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Play"
-                android:textColor="?attr/colorSecondaryVariant"
-                android:backgroundTint="?attr/colorSecondary"
-                android:drawableTop="@drawable/component_rounded1"
-                android:gravity="center"
-                android:layout_marginTop="50dp"
-                />
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="50dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/component_rounded1"
+                        android:padding="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="30dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15sp"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/board_size"
+                                app:tint="?attr/colorSecondaryVariant" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/modo_de_juego"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+
+                            >
+
+                            <Button
+                                android:id="@+id/computer"
+                                android:layout_width="150dp"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="Computer"
+                                android:layout_marginRight="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+
+                            <Button
+                                android:id="@+id/person"
+                                android:layout_width="155dp"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="Person"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/component_rounded1"
+                        android:padding="20dp"
+                        android:layout_gravity="center"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="15sp"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/board_size"
+                                app:tint="?attr/colorSecondaryVariant" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/jugador_inicial"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                android:textStyle="bold"
+                                android:layout_marginStart="7sp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+
+                            >
+
+                            <Button
+                                android:id="@+id/player1"
+                                android:layout_width="155dp"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/player_1"
+                                android:layout_marginEnd="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+
+                            <Button
+                                android:id="@+id/player2"
+                                android:layout_width="155dp"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="?attr/colorOnPrimary"
+                                android:text="@string/player_2"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginRight="5dp"
+                                android:textColor="?attr/colorSecondaryVariant"
+                                />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="50dp">
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tic_tac_toe"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textSize="40sp"
+                        android:textColor="?attr/colorPrimaryVariant" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="79dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="70sp"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/x_symbol"
+                            app:tint="@color/red" />
+
+                        <ImageView
+                            android:layout_width="70sp"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/circle"
+                            app:tint="@color/blue" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/play"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Play"
+                        android:textColor="?attr/colorSecondaryVariant"
+                        android:backgroundTint="?attr/colorSecondary"
+                        android:drawableTop="@drawable/component_rounded1"
+                        android:gravity="center"
+                        android:layout_marginTop="50dp"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp">
 
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            >
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/levelUpMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subes de nivel"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:shadowColor="#AA000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:layout_marginTop="40dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

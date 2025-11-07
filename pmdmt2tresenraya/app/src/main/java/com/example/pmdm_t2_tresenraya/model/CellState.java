@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.controller;
+package com.example.pmdm_t2_tresenraya.model;
 
 public enum CellState {
     CLEAR,

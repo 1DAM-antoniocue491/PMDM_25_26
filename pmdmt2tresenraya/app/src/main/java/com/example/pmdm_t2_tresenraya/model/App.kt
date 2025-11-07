@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.controller
+package com.example.pmdm_t2_tresenraya.model
 
 import android.app.Application
 import androidx.lifecycle.DefaultLifecycleObserver

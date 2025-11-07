@@ -9,9 +9,7 @@
         <item name="colorSecondary">@color/light_cian</item>
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorBackgroundFloating">@color/red</item>
-        <item name="color">@color/red_500</item>
         <item name="colorContainer">@color/blue</item>
-        <item name="colorAccent">@color/blue_500</item>
     </style>
 
     <style name="Theme.Default.CeldaJuego">

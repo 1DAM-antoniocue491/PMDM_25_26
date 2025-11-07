@@ -1,11 +1,10 @@
-package com.example.pmdm_t2_tresenraya.view
+package com.example.pmdm_t2_tresenraya.controller
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.ImageButton
@@ -20,10 +19,10 @@ import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.R
-import com.example.pmdm_t2_tresenraya.controller.Play
-import com.example.pmdm_t2_tresenraya.controller.Prefs
-import com.example.pmdm_t2_tresenraya.controller.Sound
-import com.example.pmdm_t2_tresenraya.controller.TTS
+import com.example.pmdm_t2_tresenraya.model.Play
+import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.Sound
+import com.example.pmdm_t2_tresenraya.model.TTS
 import java.util.Locale
 
 class SettingActivity : AppCompatActivity() {
@@ -49,9 +48,7 @@ class SettingActivity : AppCompatActivity() {
         prefs = Prefs.getInstance(this)
         tts = TTS.getInstance(this)
 
-        seekBar = findViewById<SeekBar>(R.id.seekBar2)
-
-        Log.i("Prueba", "Si ha iniciado la app")
+        seekBar = findViewById(R.id.seekBar2)
 
         initButtons()
         stylesButtons()
@@ -233,8 +230,6 @@ class SettingActivity : AppCompatActivity() {
             }
 
             Sound.playBackground(this, prefs.app.getBackgroundSound())
-
-            Log.i("Prueba", prefs.app.getStyle(this).toString())
         }
 
         default.setOnClickListener {
@@ -266,7 +261,6 @@ class SettingActivity : AppCompatActivity() {
                 }
             }
 
-            Log.i("Prueba", defaultLanguage)
             AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(defaultLanguage))
 
             prefs.app.putStyle(color, this, true)
@@ -298,7 +292,6 @@ class SettingActivity : AppCompatActivity() {
                     blue -> color = "blue"
                     pink -> color = "pink"
                 }
-                Log.i("Prueba", "Variable color cambiada: $color")
             }
         }
     }

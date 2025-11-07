@@ -1,37 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/level"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:padding="12dp"
-    android:layout_marginVertical="4dp"
-    android:clipToOutline="true"
-    android:elevation="3dp"
-    android:layout_marginHorizontal="6dp"
-    android:background="@drawable/component_rounded1">
+    android:orientation="vertical"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="24dp"
+    android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/levelNumber"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Nivel"
-        android:textColor="?attr/colorSecondaryVariant"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnPlayLevel"
+        <ImageView
+            android:id="@+id/ivCompleted"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/imagen"
+            android:src="@drawable/win_player2"
+            app:tint="?attr/colorPrimaryVariant"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
+
+        <!-- Nivel -->
+        <TextView
+            android:id="@+id/tvLevelNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nivel 1"
+            android:textColor="?attr/colorSecondaryVariant"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="8dp"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <!-- Línea de progreso dividida en 4 -->
+    <LinearLayout
+        android:id="@+id/progressSegments"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/segment1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/level_segment_unfilled" />
+
+        <View
+            android:id="@+id/segment2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/level_segment_unfilled" />
+
+        <View
+            android:id="@+id/segment3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="@drawable/level_segment_unfilled" />
+
+        <View
+            android:id="@+id/segment4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/level_segment_unfilled" />
+    </LinearLayout>
+
+    <!-- Línea divisoria entre niveles -->
+    <View
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ver"
-        android:textAllCaps="false"
-        android:backgroundTint="?attr/colorSecondary"
-        android:textColor="?attr/colorSecondaryVariant"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="8dp"
-        android:layout_marginStart="8dp"
-        android:elevation="2dp"
-        android:visibility="gone" />
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="?attr/colorPrimaryVariant" />
+
 </LinearLayout>

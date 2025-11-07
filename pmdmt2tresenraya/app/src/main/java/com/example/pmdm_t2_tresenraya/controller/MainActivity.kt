@@ -1,21 +1,23 @@
-package com.example.pmdm_t2_tresenraya.view
+package com.example.pmdm_t2_tresenraya.controller
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.pmdm_t2_tresenraya.R
-import com.example.pmdm_t2_tresenraya.controller.Play
-import com.example.pmdm_t2_tresenraya.controller.Prefs
-import com.example.pmdm_t2_tresenraya.controller.Sound
-import com.example.pmdm_t2_tresenraya.controller.TTS
+import com.example.pmdm_t2_tresenraya.model.Play
+import com.example.pmdm_t2_tresenraya.model.Prefs
+import com.example.pmdm_t2_tresenraya.model.Sound
+import com.example.pmdm_t2_tresenraya.model.TTS
 
 class MainActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
@@ -23,6 +25,8 @@ class MainActivity : AppCompatActivity() {
     private var colorOnPrimary: Int = 0
     private lateinit var playClass: Play
     private lateinit var tts: TTS
+
+    private var nivelAnterior: Int = 0
 
 
     @SuppressLint("WrongViewCast", "MissingInflatedId")
@@ -36,12 +40,32 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        playClass = Play(this)
-
-        tts = TTS.getInstance(this)
         prefs = Prefs.getInstance(this)
+        playClass = Play(this)
+        tts = TTS.getInstance(this)
 
-        if (prefs.app.isDarkMode()) {
+        initConfiguration()
+
+        players()
+
+        contrincante()
+
+        navigationIcons()
+
+        checkLevel()
+
+        val play = findViewById<Button>(R.id.play)
+        playClass.styleButton(play, this)
+
+        play.setOnClickListener { playBtn() }
+    }
+
+    fun initConfiguration() {
+        if (nivelAnterior == 0) {
+            nivelAnterior = prefs.game.iap.getPreviousLevel()
+        }
+
+        if (prefs.app.isDarkMode(this)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -49,8 +73,6 @@ class MainActivity : AppCompatActivity() {
 
         Sound.setVolume(prefs.app.getVolumeSound())
         Sound.playBackground(this, prefs.app.getBackgroundSound())
-
-
 
         val typedValueSecondary = TypedValue()
         val typeValueOnPrimary = TypedValue()
@@ -60,27 +82,6 @@ class MainActivity : AppCompatActivity() {
 
         colorSecondary = typedValueSecondary.data
         colorOnPrimary = typeValueOnPrimary.data
-
-        players()
-
-        contrincante()
-
-        navigationIcons()
-
-        val play = findViewById<Button>(R.id.play)
-        playClass.styleButton(play, this)
-        play.setOnClickListener {
-            tts.setVoz(prefs.app.getTTS())
-            tts.hablar("Empieza la partida", prefs.app.getLanguage())
-            Thread.sleep(1000)
-            var intent = Intent(this, Game_3_3_Activity::class.java)
-            startActivity(intent)
-            val player1 = findViewById<Button>(R.id.player1)
-            val player2 = findViewById<Button>(R.id.player2)
-            player1.setBackgroundColor(colorOnPrimary)
-            player2.setBackgroundColor(colorOnPrimary)
-
-        }
     }
 
     fun setButton(btn_add: Button, buttons: Array<Button>) {
@@ -181,5 +182,65 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LevelsActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    fun checkLevel() {
+        val nivelActual = prefs.game.iap.getPoints().div(4)
+
+        if (nivelActual > nivelAnterior) {
+            mostrarAnimacionSubidaNivel(findViewById(R.id.main), nivelActual)
+            prefs.game.iap.putPreviousLevel(nivelActual)
+        }
+    }
+
+    fun mostrarAnimacionSubidaNivel(view: View, nivel: Int) {
+        val messageView = view.findViewById<TextView>(R.id.levelUpMessage)
+
+        // Texto del mensaje
+        messageView.text = "¡Nivel $nivel alcanzado!"
+        messageView.visibility = View.VISIBLE
+
+        // Punto de partida: fuera de la pantalla (arriba)
+        messageView.alpha = 0f
+        messageView.translationY = -500f // empieza más arriba
+        messageView.scaleX = 0.8f
+        messageView.scaleY = 0.8f
+
+        // Primera animación: baja con rebote
+        messageView.animate()
+            .translationY(0f)               // posición original
+            .alpha(1f)                      // aparece
+            .scaleX(1.1f)                   // crece un poco
+            .scaleY(1.1f)
+            .setInterpolator(android.view.animation.BounceInterpolator())
+            .setDuration(2000)
+            .withEndAction {
+                // Pausa visible un momento
+                messageView.postDelayed({
+                    // Segunda animación: desaparecer hacia abajo
+                    messageView.animate()
+                        .translationY(400f)  // se va hacia abajo
+                        .alpha(0f)
+                        .setDuration(1000)
+                        .setInterpolator(android.view.animation.AccelerateInterpolator())
+                        .withEndAction {
+                            // Ocultar finalmente
+                            messageView.visibility = View.GONE
+                            messageView.translationY = 0f
+                        }
+                }, 1200) // tiempo visible antes de desaparecer
+            }
+    }
+
+    fun playBtn() {
+        tts.setVoz(prefs.app.getTTS())
+        tts.hablar("Empieza la partida", prefs.app.getLanguage())
+        Thread.sleep(1000)
+        var intent = Intent(this, Game_3_3_Activity::class.java)
+        startActivity(intent)
+        val player1 = findViewById<Button>(R.id.player1)
+        val player2 = findViewById<Button>(R.id.player2)
+        player1.setBackgroundColor(colorOnPrimary)
+        player2.setBackgroundColor(colorOnPrimary)
     }
 }

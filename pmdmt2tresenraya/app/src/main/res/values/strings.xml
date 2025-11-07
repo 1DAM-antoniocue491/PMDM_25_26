@@ -24,8 +24,6 @@
     <string name="win_player_1">Win player 1</string>
     <string name="win_player_2">Win player 2</string>
     <string name="draws">Draws</string>
-    <string name="_6x6">6x6</string>
-    <string name="_9x9">9x9</string>
     <string name="_3x3">3x3</string>
     <string name="reiniciar">Reiniciar</string>
     <string name="ia_vs_player">IA VS Player</string>
@@ -43,4 +41,5 @@
     <string name="m_sica_1">Música 1</string>
     <string name="correct_apply">Todo se ha guardado correctamente</string>
     <string name="niveles">Niveles</string>
+    <string name="imagen">Imagen</string>
 </resources>

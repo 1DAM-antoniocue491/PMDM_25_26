@@ -25,19 +25,19 @@
             android:layout_marginBottom="12dp"
             android:letterSpacing="0.05" />
 
-        <ScrollView
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:fillViewport="true">
 
             <LinearLayout
-                android:id="@+id/levelsContainer"
+                android:id="@+id/containerLevels"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:divider="?android:attr/dividerVertical"
-                android:showDividers="middle"
-                android:dividerPadding="6dp" />
+                android:gravity="center_horizontal"
+                android:paddingVertical="24dp" />
+
         </ScrollView>
 
     </LinearLayout>

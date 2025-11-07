@@ -20,10 +20,26 @@
     <string name="estilo">Estilo</string>
     <string name="statistics">Statistics</string>
     <string name="games_played">Games Played</string>
+    <string name="_0">0</string>
     <string name="win_player_1">Win player 1</string>
     <string name="win_player_2">Win player 2</string>
     <string name="draws">Draws</string>
-    <string name="_9x9">9x9</string>
     <string name="_3x3">3x3</string>
     <string name="reiniciar">Reiniciar</string>
+    <string name="ia_vs_player">IA VS Player</string>
+    <string name="player_vs_player">Player VS Player</string>
+    <string name="seleccionar">Seleccionar</string>
+    <string name="voz">Voz</string>
+    <string name="chico_1">Chico 1</string>
+    <string name="chico_2">Chico 2</string>
+    <string name="chica_1">Chica 1</string>
+    <string name="chica_2">Chica 2</string>
+    <string name="sonido">Sonido</string>
+    <string name="m_sica_3">Música 3</string>
+    <string name="m_sica_4">Música 4</string>
+    <string name="m_sica_2">Música 2</string>
+    <string name="m_sica_1">Música 1</string>
+    <string name="correct_apply">Todo se ha guardado correctamente</string>
+    <string name="niveles">Niveles</string>
+    <string name="imagen">Imagen</string>
 </resources>

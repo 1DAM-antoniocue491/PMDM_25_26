@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.controller
+package com.example.pmdm_t2_tresenraya.model
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -44,18 +44,28 @@ class Prefs private constructor(context: Context) {
             return prefs.getString("gameMode", "true") ?: "true"
         }
 
-        fun putTableSize(table: Int) {
-            prefs.edit { putInt("tableSize", table) }
-        }
-        fun getTableSize(): Int {
-            return prefs.getInt("tableSize", 3)
-        }
-
         fun setDarkMode(mode: Boolean) {
             prefs.edit { putBoolean("darkMode", mode) }
         }
-        fun isDarkMode(): Boolean {
-            return prefs.getBoolean("darkMode", false)
+        fun isDarkMode(context: Context): Boolean {
+            return prefs.getBoolean("darkMode", getMode(context))
+        }
+
+        private fun getMode(context: Context): Boolean {
+            val nightModeFlags = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+            when (nightModeFlags) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    return true
+                }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    return false
+                }
+                else -> {
+                    return false
+                }
+            }
+
         }
 
         fun putLanguage(language: String) {
@@ -156,20 +166,6 @@ class Prefs private constructor(context: Context) {
             return prefs.getString("tts_voice", tts.getVoice(TTS.Voice.CHICO1))
         }
 
-        fun addLevel(level: String) {
-            prefs.edit() {
-                var levels = getLevels()?.toMutableSet()
-                levels?.add(level)
-                prefs.edit {
-                    putStringSet("levels", levels)
-                }
-            }
-        }
-
-        fun getLevels(): Set<String?>? {
-            return prefs.getStringSet("levels", setOf())
-        }
-
         fun restartLevels() {
             prefs.edit {
                 putStringSet("levels", setOf())
@@ -268,6 +264,12 @@ class Prefs private constructor(context: Context) {
         }
 
         class IA(private val prefs: SharedPreferences) {
+            enum class Modifier {
+                PLUS,
+                LESS,
+                EQUALS
+            }
+
             // Partidas jugadas
             fun putGamesPlayed() {
                 var games = getGamesPlayed()
@@ -330,6 +332,40 @@ class Prefs private constructor(context: Context) {
                 prefs.edit {
                     putInt("draws_IAP", 0)
                 }
+                prefs.edit {
+                    putInt("levelsPoint", 0)
+                }
+                prefs.edit {
+                    putInt("previousLevel", 0)
+                }
+            }
+
+            fun modifyPoint(modifier: IA.Modifier) {
+                var point = getPoints()
+                if (point != 0 || modifier == IA.Modifier.PLUS) {
+                    when (modifier) {
+                        IA.Modifier.PLUS -> point += 4
+                        IA.Modifier.LESS -> point -= 2
+                        IA.Modifier.EQUALS -> point--
+                    }
+                }
+                prefs.edit {
+                    putInt("levelsPoint", point)
+                }
+            }
+
+            fun getPoints(): Int {
+                return prefs.getInt("levelsPoint", 0)
+            }
+
+            fun putPreviousLevel(level: Int) {
+                prefs.edit {
+                    putInt("previousLevel", level)
+                }
+            }
+
+            fun getPreviousLevel(): Int {
+                return prefs.getInt("previousLevel", 0)
             }
         }
     }

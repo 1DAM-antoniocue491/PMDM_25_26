@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.controller
+package com.example.pmdm_t2_tresenraya.model
 
 enum class Difficulty { EASY, MEDIUM, HARD, VOID }
 
@@ -13,12 +13,13 @@ class IA(
         private const val LOSE_SCORE = -10
     }
 
-    fun getMove(difficulty: Difficulty): Int {
+    fun getMove(difficulty: Difficulty?): Int {
         return when (difficulty) {
             Difficulty.EASY -> getEasyMove()
             Difficulty.MEDIUM -> getMediumMove()
             Difficulty.HARD -> getHardMove()
             Difficulty.VOID -> getEasyMove()
+            null -> getEasyMove()
         }
     }
 

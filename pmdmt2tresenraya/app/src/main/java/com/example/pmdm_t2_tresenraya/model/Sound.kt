@@ -1,4 +1,4 @@
-package com.example.pmdm_t2_tresenraya.controller
+package com.example.pmdm_t2_tresenraya.model
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -26,6 +26,8 @@ object Sound {
             setVolume(volume, volume)
             start()
         }
+
+        Prefs.getInstance(context).app.putBackgroundSound(soundResId)
 
         currentSoundResId = soundResId
     }
