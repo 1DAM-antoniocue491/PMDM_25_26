@@ -12,14 +12,16 @@ object Sound {
     private var isPreviewPlaying = false
 
     private var volume: Float = 1.0f // entre 0.0 y 1.0
+    private var previewPlayer: MediaPlayer? = null
 
     /**
      * Reproduce una canción en bucle como música de fondo.
      */
     fun playBackground(context: Context, soundResId: Int) {
-        if (currentSoundResId == soundResId && mediaPlayer?.isPlaying == true) return
+        if (currentSoundResId == soundResId && mediaPlayer?.isPlaying == true && Prefs.getInstance(context).app.isBackgroundSound()) return
 
-        stopBackground()
+        stopBackground(context)
+        stopPreview(false)
 
         mediaPlayer = MediaPlayer.create(context.applicationContext, soundResId).apply {
             isLooping = true
@@ -30,15 +32,23 @@ object Sound {
         Prefs.getInstance(context).app.putBackgroundSound(soundResId)
 
         currentSoundResId = soundResId
+
+        Prefs.getInstance(context).app.putIsBackgroundSound(true)
     }
 
     /**
      * Reproduce una vista previa de 10 segundos.
      */
     fun playPreview(context: Context, soundResId: Int, durationMs: Long = 10_000L) {
-        if (isPreviewPlaying) return // Evitar superposición
-
-        isPreviewPlaying = true
+        // 🔹 Si ya hay un preview sonando, detenerlo antes de reproducir el nuevo
+        if (isPreviewPlaying) {
+            try {
+                previewPlayer?.stop()
+            } catch (_: Exception) { }
+            previewPlayer?.release()
+            previewPlayer = null
+            isPreviewPlaying = false
+        }
 
         // 🔹 Pausar la música de fondo si está sonando
         val wasPlayingBackground = mediaPlayer?.isPlaying == true
@@ -46,24 +56,32 @@ object Sound {
             mediaPlayer?.pause()
         }
 
-        val previewPlayer = MediaPlayer.create(context.applicationContext, soundResId)
-        previewPlayer.setVolume(volume, volume)
-        previewPlayer.start()
+        // 🔹 Crear el nuevo MediaPlayer para el preview
+        previewPlayer = MediaPlayer.create(context.applicationContext, soundResId).apply {
+            setVolume(volume, volume)
+            start()
+        }
+        isPreviewPlaying = true
 
-        // 🔹 Escuchar cuándo termina el preview (automático)
+        // 🔹 Programar la parada automática
         Handler(Looper.getMainLooper()).postDelayed({
-            try {
-                previewPlayer.stop()
-            } catch (_: Exception) { /* ignora si ya se detuvo */ }
-
-            previewPlayer.release()
-            isPreviewPlaying = false
-
-            // 🔹 Reanudar música de fondo si estaba pausada antes
-            if (wasPlayingBackground) {
-                mediaPlayer?.start()
-            }
+            stopPreview(wasPlayingBackground)
         }, durationMs)
+    }
+
+    private fun stopPreview(wasPlayingBackground: Boolean) {
+        try {
+            previewPlayer?.stop()
+        } catch (_: Exception) { }
+
+        previewPlayer?.release()
+        previewPlayer = null
+        isPreviewPlaying = false
+
+        // 🔹 Reanudar música de fondo si estaba pausada
+        if (wasPlayingBackground) {
+            mediaPlayer?.start()
+        }
     }
 
 
@@ -78,21 +96,24 @@ object Sound {
     /**
      * Detiene y libera la música de fondo.
      */
-    fun stopBackground() {
+    fun stopBackground(context: Context) {
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
         currentSoundResId = null
+        Prefs.getInstance(context).app.putIsBackgroundSound(false)
     }
 
     /**
      * Llama esto desde onPause() o cuando cierres la app si quieres pausar la música.
      */
-    fun pauseBackground() {
+    fun pauseBackground(context: Context) {
         mediaPlayer?.pause()
+        Prefs.getInstance(context).app.putIsBackgroundSound(false)
     }
 
-    fun resumeBackground() {
+    fun resumeBackground(context: Context) {
         mediaPlayer?.start()
+        Prefs.getInstance(context).app.putIsBackgroundSound(true)
     }
 }

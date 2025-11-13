@@ -15,7 +15,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="15dp">
 
@@ -97,8 +97,8 @@
 
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:layout_marginTop="150dp">
@@ -145,7 +145,7 @@
                             android:layout_width="150dp"
                             android:layout_height="match_parent"
                             android:backgroundTint="?attr/colorOnPrimary"
-                            android:text="Computer"
+                            android:text="@string/computer"
                             android:layout_marginRight="5dp"
                             android:textColor="?attr/colorSecondaryVariant"
                             />
@@ -155,7 +155,7 @@
                             android:layout_width="155dp"
                             android:layout_height="match_parent"
                             android:backgroundTint="?attr/colorOnPrimary"
-                            android:text="Person"
+                            android:text="@string/person"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:textColor="?attr/colorSecondaryVariant"
@@ -228,7 +228,7 @@
                 </LinearLayout>
 
                 <Space
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 

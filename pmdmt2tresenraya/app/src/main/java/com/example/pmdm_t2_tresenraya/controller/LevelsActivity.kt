@@ -40,7 +40,7 @@ class LevelsActivity : AppCompatActivity() {
 
             // Asignamos el número de nivel
             val tvLevel = itemView.findViewById<TextView>(R.id.tvLevelNumber)
-            tvLevel.text = "Nivel $nivel"
+            tvLevel.text = "$nivel"
 
             // Asignamos progreso (0–4)
             val progreso = progresoPorNivel.getOrElse(nivel - 1) { 0 }

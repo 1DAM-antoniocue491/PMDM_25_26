@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         Sound.setVolume(prefs.app.getVolumeSound())
         Sound.playBackground(this, prefs.app.getBackgroundSound())
 
+
         val typedValueSecondary = TypedValue()
         val typeValueOnPrimary = TypedValue()
 
@@ -153,7 +154,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         TTS.destroy()
-        Sound.stopBackground()
+        Sound.stopBackground(this)
     }
 
     override fun onPause() {

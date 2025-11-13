@@ -345,6 +345,7 @@ class SettingActivity : AppCompatActivity() {
         // Inicializar volumen
         seekBar.progress = prefs.app.getVolumeSound()
         seekBar.thumb.setTint(prefs.app.getStyle(this))
+
         Sound.setVolume(prefs.app.getVolumeSound())
         soundValue.text = prefs.app.getVolumeSound().toString()
 
@@ -390,11 +391,11 @@ class SettingActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        Sound.pauseBackground()
+        Sound.pauseBackground(this)
     }
 
     override fun onResume() {
         super.onResume()
-        Sound.resumeBackground()
+        Sound.resumeBackground(this)
     }
 }

@@ -222,6 +222,8 @@ class Play (
             draw()
         }
 
+        val resetBoard = Array(9) { CellState.CLEAR }
+
         val intent = Intent(activity, MainActivity::class.java)
         activity.startActivity(intent)
     }

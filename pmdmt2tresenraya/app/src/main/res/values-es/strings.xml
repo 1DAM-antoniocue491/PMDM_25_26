@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">pmdm-t2-tresenraya</string>
+    <string name="app_name">TIC TAC TOE</string>
     <string name="tic_tac_toe">TIC TAC TOE</string>
     <string name="board_size">Tamaño de la tabla</string>
     <string name="modo_de_juego">Modo de juego</string>
@@ -18,16 +18,16 @@
     <string name="aplly">Guardar</string>
     <string name="restart_to_default">Reiniciar ajustes</string>
     <string name="estilo">Estilo</string>
-    <string name="statistics">Statistics</string>
-    <string name="games_played">Games Played</string>
+    <string name="statistics">Estadísticas</string>
+    <string name="games_played">Partidas Jugadas</string>
     <string name="_0">0</string>
-    <string name="win_player_1">Win player 1</string>
-    <string name="win_player_2">Win player 2</string>
-    <string name="draws">Draws</string>
+    <string name="win_player_1">Ganador Jugador 1</string>
+    <string name="win_player_2">Ganasor Jugador 2</string>
+    <string name="draws">Tablas</string>
     <string name="_3x3">3x3</string>
     <string name="reiniciar">Reiniciar</string>
-    <string name="ia_vs_player">IA VS Player</string>
-    <string name="player_vs_player">Player VS Player</string>
+    <string name="ia_vs_player">IA VS Jugador</string>
+    <string name="player_vs_player">Jugador VS Jugador</string>
     <string name="seleccionar">Seleccionar</string>
     <string name="voz">Voz</string>
     <string name="chico_1">Chico 1</string>
@@ -42,4 +42,7 @@
     <string name="correct_apply">Todo se ha guardado correctamente</string>
     <string name="niveles">Niveles</string>
     <string name="imagen">Imagen</string>
+    <string name="computer">Ordenador</string>
+    <string name="person">Persona</string>
+    <string name="player">Jugador</string>
 </resources>
