@@ -286,3 +286,5 @@ class Play (
         prefs.game.pvp.putDraws()
     }
 }
+
+annotation class Play
