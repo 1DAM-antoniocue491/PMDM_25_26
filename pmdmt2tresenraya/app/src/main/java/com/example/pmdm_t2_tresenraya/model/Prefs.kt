@@ -191,6 +191,16 @@ class Prefs private constructor(context: Context) {
         fun getVolumeSound(): Int {
             return prefs.getInt("volumeSound", 100)
         }
+
+        fun isBackgroundSound(): Boolean {
+            return prefs.getBoolean("isBackgroundSound", false)
+        }
+
+        fun putIsBackgroundSound(sound: Boolean) {
+            prefs.edit {
+                putBoolean("isBackgroundSound", sound)
+            }
+        }
     }
 
     class GamePrefs(private val prefs: SharedPreferences) {
@@ -368,5 +378,6 @@ class Prefs private constructor(context: Context) {
                 return prefs.getInt("previousLevel", 0)
             }
         }
+
     }
 }

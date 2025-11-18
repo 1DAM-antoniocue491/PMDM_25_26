@@ -42,4 +42,7 @@
     <string name="correct_apply">All changes saved successfully</string>
     <string name="niveles">Levels</string>
     <string name="imagen">Image</string>
+    <string name="computer">Computer</string>
+    <string name="person">Person</string>
+    <string name="player">Player</string>
 </resources>

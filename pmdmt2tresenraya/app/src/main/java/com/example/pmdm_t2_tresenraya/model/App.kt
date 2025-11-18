@@ -15,11 +15,11 @@ class App : Application(), DefaultLifecycleObserver {
 
     override fun onStop(owner: LifecycleOwner) {
         // La app se va a segundo plano (usuario salió)
-        Sound.pauseBackground()
+        Sound.pauseBackground(this)
     }
 
     override fun onStart(owner: LifecycleOwner) {
         // La app vuelve a primer plano
-        Sound.resumeBackground()
+        Sound.resumeBackground(this)
     }
 }
