@@ -84,25 +84,7 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             exportarLista()
-
-//            if (verificarPermiso()) {
-//            } else {
-//                Toast.makeText(this, "Permiso de escritura denegado", Toast.LENGTH_SHORT).show()
-//            }
         }
-    }
-
-    private fun verificarPermiso(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    100
-                )
-                false
-            } else true
-        } else true
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
