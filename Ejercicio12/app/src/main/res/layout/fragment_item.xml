@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="20px"
+        android:layout_height="240px"
+        android:background="@color/black"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/nombreNota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nompre"
+            android:textSize="50px"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/prioridadNota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prioridad"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:textSize="35px"
+            android:paddingLeft="15px"
+            android:paddingRight="15px"
+            android:layout_marginTop="10px"
+            android:layout_marginBottom="10px"/>
+        <TextView
+            android:id="@+id/fechaNota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fecha"/>
+    </LinearLayout>
+</LinearLayout>

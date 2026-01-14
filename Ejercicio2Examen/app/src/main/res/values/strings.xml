@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Ejercicio2Examen</string>
+    <string name="statistics">Statistics</string>
+    <string name="number_of_products">Number of products:</string>
+    <string name="average_price">Average price:</string>
+    <string name="minimum_price">Minimum price:</string>
+    <string name="maximum_price">Maximum price:</string>
+</resources>
