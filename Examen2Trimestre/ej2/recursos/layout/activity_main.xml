@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
+
+    <!-- Información inicial -->
+    <TextView
+        android:id="@+id/tvInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Información de la secuencia"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Número actual generado -->
+    <TextView
+        android:id="@+id/tvNumeroActual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="--"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Imagen de acierto/fallo -->
+    <ImageView
+        android:id="@+id/ivResultado"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Resultado"/>
+
+    <!-- Contador de aciertos -->
+    <TextView
+        android:id="@+id/tvAciertos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aciertos: 0"
+        android:textSize="20sp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Progreso -->
+    <TextView
+        android:id="@+id/tvProgreso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Progreso: 0/0"
+        android:textSize="16sp"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Botón para iniciar -->
+    <Button
+        android:id="@+id/btnIniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iniciar Secuencia"
+        android:textSize="16sp"/>
+
+    <!-- Resultado final -->
+    <TextView
+        android:id="@+id/tvResultadoFinal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:textColor="#006400"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"/>
+
+</LinearLayout>
