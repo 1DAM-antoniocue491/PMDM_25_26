@@ -1,18 +1,17 @@
-package com.example.pmdm_t4_agenda
+package com.example.notasapp
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -29,35 +28,45 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        copyFileToInternalStorage("contactos.csv")
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val lista = leerFichero("contactos.csv")
-        val contactosOrdenados = lista.sortedBy { it.nombre }
-
-        val adapter = ContactoAdapter(contactosOrdenados) { contacto ->
-            AlertDialog.Builder(this)
-                .setTitle(contacto.nombre)
-                .setPositiveButton("Llamar") { dialog, _ ->
-                    Toast.makeText(this, "Llamando a " + contacto.nombre, Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
-                .setNeutralButton("Whatsapp") { dialog, _ ->
-                    Toast.makeText(this, "Enviando whatsapp a " + contacto.nombre, Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                }
-                .show()
-        }
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, ListFragment())
+            .commit()
     }
 
-    fun leerFichero(filename: String): List<Contacto> {
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.newTask -> {
+                changeFragment(CreateDetailFragment())
+                true
+            }
+            R.id.deleteAll -> {
+                Toast.makeText(this, "Eliminar todo", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.info -> {
+                Toast.makeText(this, "Info de la app", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun leerFichero(filename: String): List<Nota> {
         // Abrir un fichero en modo lectura del flujo
         val fis: FileInputStream = this.openFileInput(filename)
-        var list = mutableListOf<Contacto>()
+        var list = mutableListOf<Nota>()
 
         // Lectura del flujo
         var contenidoLeido = ""
@@ -66,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             while (iterador.hasNext()) {
                 val contacto = iterador.next()
                 val linea = contacto.split(";")
-                list.add(Contacto(linea[0], linea[1], linea[2]))
+                list.add(Nota(linea[0], linea[1], linea[2], Prioridad.valueOf(linea[3]), linea[4].toLong()))
             }
         }
         Log.d("Lectura", "Contenido leído: $contenidoLeido")
@@ -74,7 +83,17 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
-    private fun copyFileToInternalStorage(fileName: String) {
+    fun escribirFichero(filename: String, contenido: String) {
+        // Abrir un fichero en modo escritura del flujo (privado a la aplicación)
+        val fos: FileOutputStream = this.openFileOutput(filename, Context.MODE_PRIVATE)
+
+        // Escritura del flujo
+        fos.use {
+            it.write("$contenido\n".toByteArray())
+        }
+    }
+
+    fun copyFileToInternalStorage(fileName: String) {
         try {
             val file = File(filesDir, fileName)
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/newTask"
+        android:title="Nueva tarea"
+        android:icon="@drawable/add_icon"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/deleteAll"
+        android:title="Eliminar todos"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/info"
+        android:title="Acerca de"
+        app:showAsAction="never" />
+</menu>
