@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PracticaExamen</string>
+    <string name="espa_ol">Español</string>
+    <string name="cambiar_idioma">Cambiar idioma</string>
+</resources>

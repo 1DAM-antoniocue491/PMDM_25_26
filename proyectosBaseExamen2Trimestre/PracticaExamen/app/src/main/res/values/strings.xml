@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PracticaExamen</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <string name="espa_ol">Español</string>
+    <string name="cambiar_idioma">Cambiar idioma</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
